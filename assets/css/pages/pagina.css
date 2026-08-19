@@ -1,0 +1,120 @@
+/* ─── PÁGINA DE DETALHES SPECIFIC STYLES ────────────────────────────────────── */
+
+.detalhes-jogo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    width: 100%;
+    max-width: 1000px;
+}
+
+.grid-detalhes {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: var(--space-5);
+    align-items: start;
+}
+
+.capa-moldura {
+    width: 100%;
+    aspect-ratio: 2/3;
+    background-color: var(--cor-lateral);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--cor-borda);
+    box-shadow: var(--shadow-md);
+}
+
+.capa-moldura img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.coluna-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.info-titulo {
+    font-family: var(--font-nav);
+    font-size: var(--fs-3xl);
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.info-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+}
+
+.tag-meta {
+    background-color: var(--cor-tag);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto-muted);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--fs-xs);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.info-descricao-texto {
+    background-color: var(--cor-lateral);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3);
+    line-height: 1.7;
+}
+
+.secao-avaliacoes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.avaliacao-barra {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--fs-xs);
+}
+
+.avaliacao-label {
+    width: 80px;
+    color: var(--cor-texto-muted);
+    font-weight: 700;
+}
+
+.avaliacao-trilha {
+    flex: 1;
+    height: 8px;
+    background-color: var(--cor-hover);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.avaliacao-fill {
+    height: 100%;
+    background-color: var(--cor-primaria);
+    border-radius: var(--radius-full);
+}
+
+.avaliacao-valor {
+    width: 30px;
+    text-align: right;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .grid-detalhes {
+        grid-template-columns: 1fr;
+    }
+    .capa-moldura {
+        max-width: 240px;
+        margin: 0 auto;
+    }
+}
