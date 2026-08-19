@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-path" content="../">
+    <title>Game Search — Configurações</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Seção de Configurações ── */
+
+        .secao-config {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            animation: fadeInUp 0.45s ease both;
+        }
+        /* Painel de configuração */
+
+        .painel-config {
+            background-color: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .painel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--cor-borda);
+            background: linear-gradient(to right, rgba(46, 0, 230, 0.1), transparent);
+        }
+
+        .painel-header i {
+            color: var(--cor-primaria);
+            font-size: var(--fs-base);
+            width: 20px;
+            text-align: center;
+        }
+
+        .painel-header h2 {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .painel-corpo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Aparência: contexto, preview e controles ── */
+        .aparencia-painel {
+            background: linear-gradient(145deg, #20203a 0%, #191929 100%);
+            border-color: rgba(148, 163, 184, 0.16);
+            box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.025);
+        }
+
+        .aparencia-painel .painel-header {
+            padding: 18px 24px;
+            background: linear-gradient(100deg, rgba(46, 0, 230, 0.16), rgba(46, 0, 230, 0.025) 62%, transparent);
+            border-bottom-color: rgba(148, 163, 184, 0.14);
+        }
+
+        .aparencia-painel .painel-corpo {
+            gap: 0;
+        }
+
+        .aparencia-cor-config {
+            padding: 22px 24px 24px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        .aparencia-cor-layout {
+            display: grid;
+            grid-template-columns: minmax(260px, 0.92fr) minmax(420px, 1.08fr);
+            align-items: center;
+            gap: 28px;
+        }
+
+        .aparencia-cor-contexto,
+        .aparencia-cor-controle {
+            min-width: 0;
+        }
+
+        .aparencia-cor-contexto {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .aparencia-bloco-heading {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+        }
+
+        .aparencia-bloco-heading > div {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .aparencia-bloco-heading .opcao-titulo {
+            font-size: 15px;
+            line-height: 1.25;
+        }
+
+        .aparencia-bloco-heading .opcao-descricao {
+            max-width: 310px;
+            line-height: 1.5;
+        }
+
+        .aparencia-bloco-icon {
+            display: grid;
+            width: 30px;
+            height: 30px;
+            flex: 0 0 30px;
+            place-items: center;
+            margin-top: 1px;
+            color: var(--cor-primaria);
+            font-size: 12px;
+            background: rgba(46, 0, 230, 0.16);
+            border: 1px solid rgba(46, 0, 230, 0.28);
+            border-radius: 9px;
+            box-shadow: 0 0 18px rgba(46, 0, 230, 0.12);
+        }
+
+        .aparencia-bloco-icon-muted {
+            color: var(--cor-texto-muted);
+            background: rgba(148, 163, 184, 0.08);
+            border-color: rgba(148, 163, 184, 0.15);
+            box-shadow: none;
+        }
+
+        .aparencia-preview {
+            padding: 12px;
+            background: rgba(15, 23, 42, 0.58);
+            border: 1px solid rgba(148, 163, 184, 0.13);
+            border-radius: 10px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+        }
+
+        .aparencia-preview-heading,
+        .aparencia-preview-row,
+        .aparencia-preview-indicador {
+            display: flex;
+            align-items: center;
+        }
+
+        .aparencia-preview-heading {
+            justify-content: space-between;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .aparencia-preview-kicker,
+        .aparencia-preview-status,
+        .aparencia-animacoes-label {
+            color: var(--cor-texto-muted);
+            font-family: var(--font-corpo);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .aparencia-preview-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #94a3b8;
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0;
+            text-transform: none;
+            white-space: nowrap;
+        }
+
+        .aparencia-preview-status span {
+            width: 5px;
+            height: 5px;
+            background: var(--cor-primaria);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--cor-primaria);
+        }
+
+        .aparencia-preview-content {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            padding-top: 12px;
+        }
+
+        .aparencia-preview-row {
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .aparencia-preview-botao {
+            padding: 7px 11px;
+            color: #fff;
+            font-family: var(--font-corpo);
+            font-size: 10px;
+            font-weight: 700;
+            background: var(--cor-primaria);
+            border: 1px solid var(--cor-primaria);
+            border-radius: 6px;
+            box-shadow: 0 5px 14px rgba(46, 0, 230, 0.24);
+        }
+
+        .aparencia-preview-link {
+            color: var(--cor-primaria);
+            font-family: var(--font-corpo);
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .aparencia-preview-link i {
+            margin-left: 3px;
+            font-size: 9px;
+        }
+
+        .aparencia-preview-indicador {
+            gap: 7px;
+            color: #cbd5e1;
+            font-family: var(--font-corpo);
+            font-size: 10px;
+        }
+
+        .aparencia-preview-indicador-ponto {
+            width: 7px;
+            height: 7px;
+            flex: 0 0 7px;
+            background: var(--cor-primaria);
+            border-radius: 50%;
+            box-shadow: 0 0 9px var(--cor-primaria);
+        }
+
+        .aparencia-preview-indicador-linha {
+            height: 3px;
+            flex: 1;
+            margin-left: 5px;
+            background: linear-gradient(90deg, var(--cor-primaria), rgba(255, 255, 255, 0.08));
+            border-radius: 999px;
+        }
+
+        .aparencia-cor-controle {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .aparencia-controle-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 0 2px;
+            color: #cbd5e1;
+            font-family: var(--font-corpo);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .aparencia-controle-label span:last-child {
+            color: var(--cor-primaria);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .aparencia-cor-controle .circulo-cromatico-inline {
+            width: 100%;
+            max-width: 500px;
+            grid-template-columns: minmax(160px, 1fr) 132px 76px;
+            min-height: 144px;
+        }
+
+        .aparencia-cor-controle .circulo-cromatico__wrapper {
+            width: 128px;
+            height: 128px;
+        }
+
+        .aparencia-cor-controle .circulo-cromatico__cores-grid {
+            max-height: 128px;
+        }
+
+        .aparencia-animacoes-config {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 17px 24px 19px;
+            background: rgba(15, 23, 42, 0.2);
+        }
+
+        .aparencia-animacoes-controle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 900px) {
+            .aparencia-cor-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .aparencia-cor-controle .circulo-cromatico-inline {
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .aparencia-cor-config {
+                padding: 18px;
+            }
+
+            .aparencia-animacoes-config {
+                align-items: flex-start;
+                padding: 16px 18px 18px;
+            }
+
+            .aparencia-animacoes-controle {
+                align-items: flex-end;
+                flex-direction: column-reverse;
+                gap: 7px;
+            }
+        }
+        /* Linha de opção */
+
+        .opcao-config {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--cor-borda);
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        .opcao-config:last-child {
+            border-bottom: none;
+        }
+
+        .opcao-config:hover {
+            background-color: rgba(255, 255, 255, 0.025);
+        }
+
+        .opcao-texto {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .opcao-titulo {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-base);
+            font-weight: 600;
+            color: var(--cor-texto);
+        }
+
+        .opcao-descricao {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .opcao-valor {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-sm);
+            color: var(--cor-texto-muted);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+        /* Inputs de edição inline */
+
+        .opcao-config .campo-edicao {
+            background-color: var(--cor-dropdown);
+            border: 1px solid var(--cor-borda-forte);
+            color: var(--cor-texto);
+            padding: 6px 12px;
+            border-radius: var(--border-radius-sm);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-sm);
+            outline: none;
+            transition: border-color var(--transition-speed) ease;
+            width: 200px;
+            flex-shrink: 0;
+        }
+
+        .opcao-config .campo-edicao:focus {
+            border-color: var(--cor-primaria);
+        }
+
+        .opcao-config .campo-edicao:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        /* Toggle Switch */
+
+        .toggle-wrapper {
+            flex-shrink: 0;
+        }
+
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .toggle input {
+            display: none;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background-color: var(--cor-hover);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed) ease;
+            border: 1px solid var(--cor-borda-forte);
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--cor-texto-muted);
+            border-radius: 50%;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .toggle input:checked+.toggle-slider {
+            background-color: var(--cor-primaria);
+            border-color: var(--cor-primaria);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .toggle input:checked+.toggle-slider::before {
+            transform: translateX(20px) translateY(-50%);
+            background-color: #fff;
+        }
+        /* Select estilizado */
+
+        .select-config {
+            background-color: var(--cor-dropdown);
+            border: 1px solid var(--cor-borda-forte);
+            color: var(--cor-texto);
+            padding: 8px 14px;
+            border-radius: var(--border-radius-sm);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            min-width: 120px;
+            transition: border-color var(--transition-speed) ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+
+        .select-config:hover,
+        .select-config:focus {
+            border-color: var(--cor-primaria);
+        }
+        /* Avatar */
+
+        .avatar-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .avatar-grande {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--cor-primaria);
+            box-shadow: var(--shadow-glow);
+            background: var(--cor-lateral);
+        }
+
+        .avatar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .avatar-actions .btn-avatar {
+            background: none;
+            border: none;
+            color: var(--cor-primaria);
+            font-size: var(--fs-xs);
+            cursor: pointer;
+            font-family: var(--font-corpo);
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: var(--border-radius-sm);
+            transition: all var(--transition-speed) ease;
+            text-align: left;
+        }
+
+        .avatar-actions .btn-avatar:hover {
+            background: rgba(46, 0, 230, 0.15);
+        }
+        /* ── SELETOR INLINE DO CÍRCULO CROMÁTICO ── */
+
+        .circulo-cromatico-inline {
+            display: grid;
+            grid-template-columns: 172px 144px 78px;
+            align-items: stretch;
+            gap: 8px;
+            width: 100%;
+            max-width: 458px;
+            min-height: 198px;
+            margin-top: 8px;
+            padding: 6px;
+            box-sizing: border-box;
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.45);
+        }
+
+        @media (max-width: 650px) {
+            .circulo-cromatico-inline {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+                min-height: 0;
+                padding: 8px;
+                gap: 8px;
+            }
+        }
+
+        .circulo-cromatico__coluna-controles {
+            display: flex;
+            min-width: 0;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 3px 4px 3px 2px;
+        }
+
+        .circulo-cromatico__controles {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .circulo-cromatico__grupo-slider {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .circulo-cromatico__grupo-slider label {
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
+            color: #94a3b8;
+            font-family: var(--font-corpo);
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .circulo-cromatico__grupo-slider label span {
+            flex-shrink: 0;
+            color: #f1f5f9;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+        }
+
+        .circulo-cromatico__grupo-slider input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 3px;
+            margin: 0;
+            background: #334155;
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .circulo-cromatico__grupo-slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #ec4899;
+            border: 2px solid #0f172a;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.35);
+        }
+
+        .circulo-cromatico__grupo-slider input[type="range"]::-moz-range-thumb {
+            width: 9px;
+            height: 9px;
+            background: #ec4899;
+            border: 2px solid #0f172a;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.35);
+        }
+
+        .circulo-cromatico__preview-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+            min-width: 0;
+            padding: 4px 5px;
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 6px;
+        }
+
+        .circulo-cromatico__preview {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            gap: 5px;
+        }
+
+        .circulo-cromatico__amostra {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+
+        .circulo-cromatico__codigo-hex {
+            overflow: hidden;
+            color: #f1f5f9;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-overflow: ellipsis;
+        }
+
+        .circulo-cromatico__botao-reset {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            gap: 3px;
+            padding: 3px 4px;
+            color: #94a3b8;
+            font-family: var(--font-corpo);
+            font-size: 9px;
+            font-weight: 500;
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .circulo-cromatico__botao-reset:hover {
+            color: #f1f5f9;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .circulo-cromatico__coluna-circulo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        .circulo-cromatico__wrapper {
+            position: relative;
+            width: 136px;
+            height: 136px;
+            flex-shrink: 0;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            cursor: crosshair;
+            background: conic-gradient(
+                from 0deg,
+                rgba(255, 0, 0, 1),
+                rgba(255, 255, 0, 1),
+                rgba(0, 255, 0, 1),
+                rgba(0, 255, 255, 1),
+                rgba(0, 0, 255, 1),
+                rgba(255, 0, 255, 1),
+                rgba(255, 0, 0, 1)
+            );
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .circulo-cromatico__coluna-paleta {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            gap: 6px;
+            height: 100%;
+            padding: 3px 4px;
+            box-sizing: border-box;
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 6px;
+        }
+
+        .circulo-cromatico__paleta-titulo {
+            align-self: center;
+            color: #94a3b8;
+            font-size: 9px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: 0.04em;
+            text-align: center;
+            text-transform: uppercase;
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+        }
+
+        .circulo-cromatico__cores-grid {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            max-height: 130px;
+            min-width: 0;
+            overflow-y: auto;
+            padding-right: 1px;
+           
+        }
+
+        .circulo-cromatico__cores-grid::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .circulo-cromatico__cores-grid::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 3px;
+        }
+
+        .circulo-cromatico__cor-preset {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .circulo-cromatico__cor-preset:hover {
+            z-index: 1;
+            border-color: #fff;
+            transform: scale(1.2);
+        }
+
+        .circulo-cromatico__saturacao-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .circulo-cromatico__luminosidade-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, transparent 30%, rgba(0, 0, 0, 0.8) 100%);
+            pointer-events: none;
+        }
+
+        .circulo-cromatico__cursor {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+        /* ── Zona de perigo ── */
+
+        .zona-perigo .painel-header {
+            background: linear-gradient(to right, rgba(237, 28, 36, 0.12), transparent);
+            border-bottom-color: rgba(237, 28, 36, 0.2);
+        }
+
+        .zona-perigo .painel-header i {
+            color: #ed1c24;
+        }
+
+        .btn-perigo {
+            background-color: transparent;
+            border: 1px solid #ed1c24;
+            color: #ed1c24;
+            padding: 8px 20px;
+            border-radius: var(--border-radius-xl);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            flex-shrink: 0;
+        }
+
+        .btn-perigo:hover {
+            background-color: rgba(237, 28, 36, 0.15);
+        }
+        /* Botão de salvar */
+
+        .barra-salvar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding-bottom: 20px;
+        }
+
+        .btn-salvar {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-salvar .spinner-salvar {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s ease-in-out infinite;
+        }
+
+        .btn-salvar.carregando .spinner-salvar {
+            display: inline-block;
+        }
+
+        .btn-salvar.carregando .icone-salvar {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        /* Status de edição */
+
+        .editando .opcao-descricao {
+            display: none;
+        }
+
+        .editando .opcao-valor {
+            display: none;
+        }
+
+        .editando .campo-edicao {
+            display: block;
+        }
+
+        .editando .btn-editar {
+            display: none;
+        }
+
+        .editando .btn-cancelar-edicao {
+            display: inline-flex;
+        }
+
+        .editando .btn-salvar-edicao {
+            display: inline-flex;
+        }
+
+        .campo-edicao {
+            display: none;
+        }
+
+        .btn-editar {
+            background: none;
+            border: none;
+            color: var(--cor-texto-muted);
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: var(--border-radius-sm);
+            font-size: var(--fs-xs);
+            transition: all var(--transition-speed) ease;
+            flex-shrink: 0;
+        }
+
+        .btn-editar:hover {
+            color: var(--cor-primaria);
+            background: rgba(46, 0, 230, 0.1);
+        }
+
+        .btn-cancelar-edicao {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--cor-texto-muted);
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: var(--border-radius-sm);
+            font-size: var(--fs-xs);
+            transition: all var(--transition-speed) ease;
+            flex-shrink: 0;
+        }
+
+        .btn-cancelar-edicao:hover {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .btn-salvar-edicao {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--cor-primaria);
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: var(--border-radius-sm);
+            font-size: var(--fs-xs);
+            font-weight: 600;
+            transition: all var(--transition-speed) ease;
+            flex-shrink: 0;
+        }
+
+        .btn-salvar-edicao:hover {
+            background: rgba(46, 0, 230, 0.1);
+        }
+        /* Toast */
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--cor-primaria);
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: var(--border-radius);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-sm);
+            font-weight: 600;
+            box-shadow: var(--shadow-glow);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.visivel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast.erro {
+            background-color: #ef4444;
+        }
+
+        .toast.sucesso {
+            background-color: #22c55e;
+        }
+        /* Loading skeleton */
+
+        .skeleton {
+            background: linear-gradient(90deg, var(--cor-lateral) 25%, var(--cor-hover) 50%, var(--cor-lateral) 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: var(--border-radius-sm);
+        }
+
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        /* ── Responsividade ── */
+
+        @media (max-width: 600px) {
+            .opcao-config {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .painel-header {
+                padding: 14px 18px;
+            }
+            .opcao-config {
+                padding: 14px 18px;
+            }
+            .circulo-cromatico-inline {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .circulo-cromatico-container {
+                max-width: 100%;
+                align-items: stretch;
+            }
+            .circulo-cromatico__wrapper {
+                width: min(136px, 72vw);
+                height: min(136px, 72vw);
+            }
+            .circulo-cromatico__preview-container {
+                width: 100%;
+            }
+            .opcao-config .campo-edicao {
+                width: 100%;
+            }
+            .avatar-container {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../assets/css/PixelBlast.css">
+</head>
+
+<body>
+    <div class="layout-principal">
+
+        <!-- Sidebar -->
+        <aside class="barra-lateral" id="sidebarDrawer">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo2.png" alt="Game Search">
+            </div>
+
+            <!-- Navegação Principal -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Navegação Principal</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="../index.html"><i class="fas fa-home"></i><span>Início</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Informações -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Informações</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="sobre.html"><i class="fas fa-users"></i><span>Sobre nós</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Usuário -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Usuário</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i><span>Entrar</span></a></li>
+                        <li><a href="perfil.html"><i class="fas fa-user"></i><span>Perfil</span></a></li>
+                        <li class="ativo"><a href="configuracao.html"><i class="fas fa-cog"></i><span>Configurações</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Suporte -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Suporte</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="contato.html"><i class="fas fa-envelope"></i><span>Contato</span></a></li>
+                        <li><a href="ajuda.html"><i class="fas fa-question-circle"></i><span>Ajuda</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Overlay para mobile -->
+        <div class="drawer-overlay" id="drawerOverlay"></div>
+
+        <!-- Conteúdo -->
+        <main class="conteudo-principal">
+
+            <header class="barra-superior">
+                <div class="container-busca">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="BUSCAR" class="campo-busca" autocomplete="off">
+                </div>
+            </header>
+           
+            <nav class="breadcrumb" aria-label="Navegação">
+                <a href="../index.html"><i class="fas fa-home"></i> Início</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Configurações</span>
+            </nav>
+<br>
+
+            <section class="secao-config">
+                <h1 class="titulo-secao"><i class="fas fa-cog"></i> <span>Configurações</span></h1>
+                <div class="barra-salvar">
+                    <button class="btn-primario btn-salvar" id="btn-salvar">
+                        <span class="spinner-salvar"></span>
+                        <i class="fas fa-save icone-salvar"></i>
+                        <span>Salvar alterações</span>
+                    </button>
+                </div>
+
+                <!-- Conta -->
+                <div class="painel-config" id="painel-conta">
+                    <div class="painel-header">
+                        <i class="fas fa-user-circle"></i>
+                        <h2>Conta</h2>
+                    </div>
+                    <div class="painel-corpo">
+                        <!-- Avatar -->
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Foto de perfil</span>
+                                <span class="opcao-descricao">Clique para alterar sua foto</span>
+                            </div>
+                            <div class="avatar-container">
+                                <img src="../assets/img/default-avatar.png" alt="Avatar" class="avatar-grande" id="fotoPerfil">
+                                <div class="avatar-actions">
+                                    <button class="btn-avatar" id="btnAlterarFoto">
+                                        <i class="fas fa-camera"></i> Alterar foto
+                                    </button>
+                                    <button class="btn-avatar" id="btnRemoverFoto" style="color: var(--cor-texto-muted);">
+                                        <i class="fas fa-trash-alt"></i> Remover
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nome -->
+                        <div class="opcao-config" data-campo="nome">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Nome completo</span>
+                                <span class="opcao-descricao" id="nome-descricao">Carregando...</span>
+                            </div>
+                            <input type="text" class="campo-edicao" id="nome-edicao" value="" placeholder="Seu nome completo">
+                            <div class="opcao-valor" id="nome-valor">---</div>
+                            <button class="btn-editar" data-campo="nome"><i class="fas fa-pen"></i></button>
+                            <button class="btn-cancelar-edicao" data-campo="nome"><i class="fas fa-times"></i></button>
+                            <button class="btn-salvar-edicao" data-campo="nome"><i class="fas fa-check"></i></button>
+                        </div>
+
+                        <!-- Usuário -->
+                        <div class="opcao-config" data-campo="usuario">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Nome de usuário</span>
+                                <span class="opcao-descricao" id="usuario-descricao">Carregando...</span>
+                            </div>
+                            <input type="text" class="campo-edicao" id="usuario-edicao" value="" placeholder="Seu nome de usuário">
+                            <div class="opcao-valor" id="usuario-valor">---</div>
+                            <button class="btn-editar" data-campo="usuario"><i class="fas fa-pen"></i></button>
+                            <button class="btn-cancelar-edicao" data-campo="usuario"><i class="fas fa-times"></i></button>
+                            <button class="btn-salvar-edicao" data-campo="usuario"><i class="fas fa-check"></i></button>
+                        </div>
+
+                        <!-- E-mail -->
+                        <div class="opcao-config" data-campo="email">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">E-mail</span>
+                                <span class="opcao-descricao" id="email-descricao">Carregando...</span>
+                            </div>
+                            <input type="email" class="campo-edicao" id="email-edicao" value="" placeholder="seu@email.com">
+                            <div class="opcao-valor" id="email-valor">---</div>
+                            <button class="btn-editar" data-campo="email"><i class="fas fa-pen"></i></button>
+                            <button class="btn-cancelar-edicao" data-campo="email"><i class="fas fa-times"></i></button>
+                            <button class="btn-salvar-edicao" data-campo="email"><i class="fas fa-check"></i></button>
+                        </div>
+
+                        <!-- Data de cadastro -->
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Data de cadastro</span>
+                                <span class="opcao-descricao" id="data-cadastro">Carregando...</span>
+                            </div>
+                            <span class="opcao-valor" id="data-cadastro-valor">---</span>
+                        </div>
+
+                        <!-- Cargo -->
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Cargo</span>
+                                <span class="opcao-descricao" id="cargo-descricao">Carregando...</span>
+                            </div>
+                            <span class="opcao-valor" id="cargo-valor">---</span>
+                        </div>
+
+                        <!-- Senha -->
+                        <div class="opcao-config" data-campo="senha">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Senha</span>
+                                <span class="opcao-descricao" id="senha-descricao">••••••••</span>
+                            </div>
+                            <button class="btn-editar" data-campo="senha" id="btn-alterar-senha">
+                                <i class="fas fa-key"></i> Alterar senha
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aparência -->
+                <div class="painel-config aparencia-painel">
+                    <div class="painel-header">
+                        <i class="fas fa-palette"></i>
+                        <h2>Aparência</h2>
+                    </div>
+                    <div class="painel-corpo">
+                        <div class="aparencia-cor-config">
+                            <div class="aparencia-cor-layout">
+                                <div class="aparencia-cor-contexto">
+                                    <div class="aparencia-bloco-heading">
+                                        <span class="aparencia-bloco-icon"><i class="fas fa-wand-magic-sparkles"></i></span>
+                                        <div>
+                                            <span class="opcao-titulo">Cor de destaque</span>
+                                            <span class="opcao-descricao">Personaliza botões, links e indicadores ativos</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="aparencia-preview" aria-label="Prévia dos elementos afetados pela cor de destaque">
+                                        <div class="aparencia-preview-heading">
+                                            <span class="aparencia-preview-kicker">Prévia no sistema</span>
+                                            <span class="aparencia-preview-status"><span></span>Aplicada em tempo real</span>
+                                        </div>
+                                        <div class="aparencia-preview-content">
+                                            <div class="aparencia-preview-row">
+                                                <button class="aparencia-preview-botao" type="button">Botão primário</button>
+                                                <span class="aparencia-preview-link">Link ativo <i class="fas fa-arrow-up-right-from-square"></i></span>
+                                            </div>
+                                            <div class="aparencia-preview-indicador">
+                                                <span class="aparencia-preview-indicador-ponto"></span>
+                                                <span>Indicador ativo</span>
+                                                <span class="aparencia-preview-indicador-linha"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Seletor de Cores Inline na Seção de Aparência -->
+                                <div class="aparencia-cor-controle">
+                                    <div class="aparencia-controle-label">
+                                        <span>Escolha uma cor</span>
+                                        <span id="previewHexLabel">#2e00e6</span>
+                                    </div>
+                                    <div class="circulo-cromatico-inline" id="seletorCores">
+                                        <!-- Coluna 1: Controles, Preview e Redefinir -->
+                                        <div class="circulo-cromatico__coluna-controles">
+                                            <div class="circulo-cromatico__controles">
+                                                <div class="circulo-cromatico__grupo-slider">
+                                                    <label>Saturação <span id="valorSat">100%</span></label>
+                                                    <input type="range" id="rangeSat" min="0" max="100" value="100" aria-label="Saturação da cor">
+                                                </div>
+                                                <div class="circulo-cromatico__grupo-slider">
+                                                    <label>Luminosidade <span id="valorLum">50%</span></label>
+                                                    <input type="range" id="rangeLum" min="0" max="100" value="50" aria-label="Luminosidade da cor">
+                                                </div>
+                                            </div>
+
+                                            <div class="circulo-cromatico__preview-container">
+                                                <div class="circulo-cromatico__preview">
+                                                    <span class="circulo-cromatico__amostra" id="previewAmostra" style="background:#2e00e6;"></span>
+                                                    <span class="circulo-cromatico__codigo-hex" id="previewHex">#2e00e6</span>
+                                                </div>
+                                                <button class="circulo-cromatico__botao-reset" id="btnResetCor" type="button" title="Resetar para cor padrão">
+                                                    <i class="fas fa-undo-alt"></i> Redefinir
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Coluna 2: Círculo Cromático -->
+                                        <div class="circulo-cromatico__coluna-circulo">
+                                            <div class="circulo-cromatico__wrapper" id="circuloCor" role="slider" aria-label="Círculo cromático para selecionar tonalidade e saturação" tabindex="0" title="Clique ou arraste para selecionar a cor">
+                                                <div class="circulo-cromatico__saturacao-overlay"></div>
+                                                <div class="circulo-cromatico__luminosidade-overlay"></div>
+                                                <div class="circulo-cromatico__cursor" id="cursorCor"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Coluna 3: Cores Padrão Vertical -->
+                                        <div class="circulo-cromatico__coluna-paleta">
+                                            <span class="circulo-cromatico__paleta-titulo">Cores Padrão</span>
+                                            <div class="circulo-cromatico__cores-grid">
+                                                <button class="circulo-cromatico__cor-preset" data-cor="#2e00e6" style="background: #2e00e6;" title="Azul Royal"></button>
+                                                <button class="circulo-cromatico__cor-preset" data-cor="#ec4899" style="background: #ec4899;" title="Rosa"></button>
+                                                <button class="circulo-cromatico__cor-preset" data-cor="#ef4444" style="background: #ef4444;" title="Vermelho"></button>
+                                                <button class="circulo-cromatico__cor-preset" data-cor="#f59e0b" style="background: #f59e0b;" title="Laranja"></button>
+                                                <button class="circulo-cromatico__cor-preset" data-cor="#10b981" style="background: #10b981;" title="Esmeralda"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aparencia-animacoes-config">
+                            <div class="aparencia-bloco-heading">
+                                <span class="aparencia-bloco-icon aparencia-bloco-icon-muted"><i class="fas fa-wand-magic-sparkles"></i></span>
+                                <div>
+                                    <span class="opcao-titulo">Animações</span>
+                                    <span class="opcao-descricao">Transições e efeitos de entrada nas páginas</span>
+                                </div>
+                            </div>
+                            <div class="aparencia-animacoes-controle">
+                                <span class="aparencia-animacoes-label">Efeitos de interface</span>
+                                <label class="toggle">
+                                    <input type="checkbox" id="toggle-animacoes">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zona de Perigo -->
+                <div class="painel-config zona-perigo">
+                    <div class="painel-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h2>Área de Risco</h2>
+                    </div>
+                    <div class="painel-corpo">
+
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Sair da conta</span>
+                                <span class="opcao-descricao">Encerra sua sessão neste dispositivo</span>
+                            </div>
+                            <button class="btn-perigo" type="button" data-logout>
+                                <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sair
+                            </button>
+                        </div>
+
+                        <div class="opcao-config">
+                            <div class="opcao-texto">
+                                <span class="opcao-titulo">Excluir conta</span>
+                                <span class="opcao-descricao">Remove permanentemente sua conta e todos os dados</span>
+                            </div>
+                            <button class="btn-perigo" id="btn-excluir-conta">Excluir conta</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal de alterar senha -->
+    <div id="modal-senha" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center;">
+        <div style="background:var(--cor-lateral); border:1px solid var(--cor-borda); border-radius:var(--border-radius); padding:32px; max-width:400px; width:90%;">
+            <h2 style="font-family:var(--font-titulo); margin-bottom:20px;">Alterar Senha</h2>
+            <div id="modal-senha-mensagem" style="display:none; padding:10px; border-radius:8px; margin-bottom:12px;"></div>
+            <div style="display:flex; flex-direction:column; gap:14px;">
+                <div>
+                    <label style="font-size:var(--fs-xs); color:var(--cor-texto-muted);">Senha atual</label>
+                    <input type="password" id="senha-atual" placeholder="Senha atual" style="width:100%; padding:10px; border-radius:var(--border-radius-sm); background:var(--cor-dropdown); border:1px solid var(--cor-borda-forte); color:var(--cor-texto);">
+                </div>
+                <div>
+                    <label style="font-size:var(--fs-xs); color:var(--cor-texto-muted);">Nova senha</label>
+                    <input type="password" id="nova-senha" placeholder="Nova senha (mín. 6 caracteres)" style="width:100%; padding:10px; border-radius:var(--border-radius-sm); background:var(--cor-dropdown); border:1px solid var(--cor-borda-forte); color:var(--cor-texto);">
+                </div>
+                <div>
+                    <label style="font-size:var(--fs-xs); color:var(--cor-texto-muted);">Confirmar nova senha</label>
+                    <input type="password" id="confirmar-nova-senha" placeholder="Confirmar nova senha" style="width:100%; padding:10px; border-radius:var(--border-radius-sm); background:var(--cor-dropdown); border:1px solid var(--cor-borda-forte); color:var(--cor-texto);">
+                </div>
+            </div>
+            <div style="display:flex; gap:12px; margin-top:20px; justify-content:flex-end;">
+                <button id="modal-senha-cancelar" style="background:none; border:1px solid var(--cor-borda); color:var(--cor-texto); padding:10px 24px; border-radius:var(--border-radius-xl); cursor:pointer;">Cancelar</button>
+                <button id="modal-senha-salvar" style="background:var(--cor-primaria); border:none; color:#fff; padding:10px 24px; border-radius:var(--border-radius-xl); cursor:pointer;">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i> <span id="toastMensagem">Alterações salvas com sucesso!</span>
+    </div>
+
+    <!-- Botão Hambúrguer para Mobile -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="../assets/js/global.js"></script>
+    <script>
+        // ── CONFIGURAÇÕES DA PÁGINA ────────────────────────────────────────────
+
+        const API_URL = '../php/api/user.php';
+        const COR_PADRAO = '#2e00e6';
+
+        // ── ELEMENTOS ──────────────────────────────────────────────────────────
+        const elements = {
+            // Dados do usuário
+            fotoPerfil: document.getElementById('fotoPerfil'),
+            nomeDescricao: document.getElementById('nome-descricao'),
+            nomeValor: document.getElementById('nome-valor'),
+            nomeEdicao: document.getElementById('nome-edicao'),
+            usuarioDescricao: document.getElementById('usuario-descricao'),
+            usuarioValor: document.getElementById('usuario-valor'),
+            usuarioEdicao: document.getElementById('usuario-edicao'),
+            emailDescricao: document.getElementById('email-descricao'),
+            emailValor: document.getElementById('email-valor'),
+            emailEdicao: document.getElementById('email-edicao'),
+            dataCadastro: document.getElementById('data-cadastro'),
+            dataCadastroValor: document.getElementById('data-cadastro-valor'),
+            cargoDescricao: document.getElementById('cargo-descricao'),
+            cargoValor: document.getElementById('cargo-valor'),
+
+            // Preferências e Círculo Cromático (Inline)
+            toggleAnimacoes: document.getElementById('toggle-animacoes'),
+            circuloCor: document.getElementById('circuloCor'),
+            cursorCor: document.getElementById('cursorCor'),
+            rangeSat: document.getElementById('rangeSat'),
+            valorSat: document.getElementById('valorSat'),
+            rangeLum: document.getElementById('rangeLum'),
+            valorLum: document.getElementById('valorLum'),
+            previewAmostra: document.getElementById('previewAmostra'),
+            previewHex: document.getElementById('previewHex'),
+            previewHexLabel: document.getElementById('previewHexLabel'),
+            btnResetCor: document.getElementById('btnResetCor'),
+
+            // Botões
+            btnSalvar: document.getElementById('btn-salvar'),
+            btnExcluirConta: document.getElementById('btn-excluir-conta'),
+            btnAlterarSenha: document.getElementById('btn-alterar-senha'),
+            btnAlterarFoto: document.getElementById('btnAlterarFoto'),
+            btnRemoverFoto: document.getElementById('btnRemoverFoto'),
+
+            // Modal
+            modalSenha: document.getElementById('modal-senha'),
+            senhaAtual: document.getElementById('senha-atual'),
+            novaSenha: document.getElementById('nova-senha'),
+            confirmarNovaSenha: document.getElementById('confirmar-nova-senha'),
+            modalSenhaCancelar: document.getElementById('modal-senha-cancelar'),
+            modalSenhaSalvar: document.getElementById('modal-senha-salvar'),
+            modalSenhaMensagem: document.getElementById('modal-senha-mensagem'),
+
+            // Toast
+            toast: document.getElementById('toast'),
+            toastMensagem: document.getElementById('toastMensagem'),
+        };
+
+        let dadosUsuario = {};
+        let corSelecionada = COR_PADRAO;
+
+        // ── FUNÇÕES AUXILIARES ──────────────────────────────────────────────
+
+        function hexParaRgb(hex) {
+            const resultado = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return resultado ? {
+                r: parseInt(resultado[1], 16),
+                g: parseInt(resultado[2], 16),
+                b: parseInt(resultado[3], 16)
+            } : null;
+        }
+
+        function mostrarToast(mensagem, tipo = 'sucesso') {
+            const toast = elements.toast;
+            const msg = elements.toastMensagem;
+            msg.textContent = mensagem;
+            toast.className = 'toast visivel ' + tipo;
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('visivel'), 4000);
+        }
+
+        // ── Funções do Círculo Cromático e HSL ──────────────────────────────
+        let hueAtual = 240;
+        let satAtual = 100;
+        let lumAtual = 50;
+
+        function hslParaHex(h, s, l) {
+            l /= 100;
+            s /= 100;
+            const a = s * Math.min(l, 1 - l);
+            const f = n => {
+                const k = (n + h / 30) % 12;
+                const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+                return Math.round(255 * color).toString(16).padStart(2, '0');
+            };
+            return `#${f(0)}${f(8)}${f(4)}`;
+        }
+
+        function hexParaHsl(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            if (!result) return { h: 240, s: 100, l: 50 };
+            let r = parseInt(result[1], 16) / 255;
+            let g = parseInt(result[2], 16) / 255;
+            let b = parseInt(result[3], 16) / 255;
+
+            let max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, l = (max + min) / 2;
+
+            if (max === min) {
+                h = s = 0;
+            } else {
+                let d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+            return {
+                h: Math.round(h * 360),
+                s: Math.round(s * 100),
+                l: Math.round(l * 100)
+            };
+        }
+
+        function atualizarCorPorHsl(h, s, l, atualizarSliders = true, corExata = null) {
+            hueAtual = h;
+            satAtual = s;
+            lumAtual = l;
+
+            // Presets podem fornecer o HEX original para evitar perda por arredondamento HSL.
+            const hex = corExata || hslParaHex(h, s, l);
+            aplicarCorPreview(hex);
+
+            if (atualizarSliders && elements.rangeSat && elements.rangeLum) {
+                elements.rangeSat.value = s;
+                elements.valorSat.textContent = `${s}%`;
+                elements.rangeLum.value = l;
+                elements.valorLum.textContent = `${l}%`;
+            }
+
+            if (elements.cursorCor && elements.circuloCor) {
+                const raioMax = elements.circuloCor.clientWidth / 2 || 90;
+                const rad = (h - 90) * (Math.PI / 180);
+                const dist = (s / 100) * (raioMax - 12);
+                const cx = raioMax + Math.cos(rad) * dist;
+                const cy = raioMax + Math.sin(rad) * dist;
+                elements.cursorCor.style.left = `${cx}px`;
+                elements.cursorCor.style.top = `${cy}px`;
+            }
+        }
+
+        function manipularInteracaoCirculo(e) {
+            if (!elements.circuloCor) return;
+            const rect = elements.circuloCor.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+            const raioMax = rect.width / 2;
+            const dx = x - raioMax;
+            const dy = y - raioMax;
+
+            let distancia = Math.hypot(dx, dy);
+            if (distancia > raioMax) distancia = raioMax;
+
+            let angulo = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+            if (angulo < 0) angulo += 360;
+
+            const saturacao = Math.round((distancia / raioMax) * 100);
+
+            atualizarCorPorHsl(angulo, saturacao, lumAtual);
+        }
+
+        function aplicarCorPreview(cor) {
+            corSelecionada = cor;
+            if (elements.previewAmostra) elements.previewAmostra.style.backgroundColor = cor;
+            if (elements.previewHex) elements.previewHex.textContent = cor;
+            if (elements.previewHexLabel) elements.previewHexLabel.textContent = cor;
+
+            // Aplica a cor em tempo real (preview)
+            document.documentElement.style.setProperty('--cor-primaria', cor);
+            const rgb = hexParaRgb(cor);
+            if (rgb) {
+                const rgbStr = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+                document.documentElement.style.setProperty('--cor-primaria-rgb', rgbStr);
+                document.documentElement.style.setProperty('--cor-primaria-hover', hslParaHex(hueAtual, satAtual, Math.min(lumAtual + 10, 100)));
+                document.documentElement.style.setProperty('--shadow-glow', `0 0 20px rgba(${rgbStr}, 0.25)`);
+                document.documentElement.style.setProperty('--shadow-glow-hover', `0 0 35px rgba(${rgbStr}, 0.45)`);
+            }
+        }
+
+        function carregarPreferenciasLocal() {
+            const corSalva = localStorage.getItem('pref_cor') || COR_PADRAO;
+            const animacoesAtivas = localStorage.getItem('pref_animacoes') !== 'false';
+
+            const hsl = hexParaHsl(corSalva);
+            atualizarCorPorHsl(hsl.h, hsl.s, hsl.l);
+
+            elements.toggleAnimacoes.checked = animacoesAtivas;
+            if (!animacoesAtivas) {
+                document.body.classList.add('sem-animacoes');
+            } else {
+                document.body.classList.remove('sem-animacoes');
+            }
+        }
+
+        // ── CARREGAR DADOS DO USUÁRIO ─────────────────────────────────────
+
+        async function carregarDadosUsuario() {
+            try {
+                const response = await fetch(`${API_URL}?acao=get`, { credentials: 'include' });
+                const data = await response.json();
+
+                if (!data.success) {
+                    if (data.message.includes('Sessão expirada')) {
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    mostrarToast(data.message, 'erro');
+                    return;
+                }
+
+                dadosUsuario = data.user;
+                preencherDadosUsuario(dadosUsuario);
+                carregarPreferenciasLocal();
+
+                // Carregar preferências do banco
+                if (dadosUsuario.preferencias_cor) {
+                    const hslSalvo = hexParaHsl(dadosUsuario.preferencias_cor);
+                    atualizarCorPorHsl(hslSalvo.h, hslSalvo.s, hslSalvo.l);
+                }
+                if (dadosUsuario.preferencias_animacoes !== undefined) {
+                    const animacoes = dadosUsuario.preferencias_animacoes == 1;
+                    elements.toggleAnimacoes.checked = animacoes;
+                    if (!animacoes) {
+                        document.body.classList.add('sem-animacoes');
+                    } else {
+                        document.body.classList.remove('sem-animacoes');
+                    }
+                }
+
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+                mostrarToast('Erro ao conectar com o servidor', 'erro');
+            }
+        }
+
+        function preencherDadosUsuario(usuario) {
+            // Foto: o endpoint atual usa foto_perfil; foto é aceito para manter
+            // compatibilidade com respostas antigas do login.
+            const foto = usuario.foto_perfil || usuario.foto;
+            if (foto && !foto.endsWith('default-avatar.png')) {
+                elements.fotoPerfil.src = foto.startsWith('http') || foto.startsWith('/')
+                    ? foto
+                    : `../${foto.replace(/^\.\//, '')}`;
+            } else {
+                elements.fotoPerfil.src = '../assets/img/default-avatar.png';
+            }
+
+            // Nome
+            elements.nomeDescricao.textContent = usuario.nome || 'Não informado';
+            elements.nomeValor.textContent = usuario.nome || '---';
+            elements.nomeEdicao.value = usuario.nome || '';
+
+            // Usuário
+            elements.usuarioDescricao.textContent = usuario.usuario || 'Não informado';
+            elements.usuarioValor.textContent = usuario.usuario || '---';
+            elements.usuarioEdicao.value = usuario.usuario || '';
+
+            // E-mail
+            elements.emailDescricao.textContent = usuario.email || 'Não informado';
+            elements.emailValor.textContent = usuario.email || '---';
+            elements.emailEdicao.value = usuario.email || '';
+
+            // Data de cadastro
+            const data = usuario.data_cadastro || 'Não informado';
+            elements.dataCadastro.textContent = data;
+            elements.dataCadastroValor.textContent = data;
+
+            // Cargo
+            const cargo = usuario.cargo || 'Usuário';
+            elements.cargoDescricao.textContent = cargo;
+            elements.cargoValor.textContent = cargo;
+        }
+
+        // ── SALVAR DADOS DO USUÁRIO ──────────────────────────────────────
+
+        async function salvarDadosUsuario(campo, valor) {
+            const btnSalvar = elements.btnSalvar;
+            btnSalvar.classList.add('carregando');
+            btnSalvar.disabled = true;
+
+            try {
+                const payload = {
+                    nome: elements.nomeEdicao.value,
+                    usuario: elements.usuarioEdicao.value,
+                    email: elements.emailEdicao.value
+                };
+
+                const response = await fetch(`${API_URL}?acao=update`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Atualizar dados exibidos
+                    if (data.user) {
+                        preencherDadosUsuario({
+                            ...dadosUsuario,
+                            ...data.user
+                        });
+                        dadosUsuario = { ...dadosUsuario, ...data.user };
+                    }
+                    mostrarToast(data.message, 'sucesso');
+                    // Sair do modo de edição
+                    fecharModoEdicao();
+                } else {
+                    mostrarToast(data.message, 'erro');
+                }
+            } catch (error) {
+                console.error('Erro ao salvar:', error);
+                mostrarToast('Erro ao salvar alterações', 'erro');
+            } finally {
+                btnSalvar.classList.remove('carregando');
+                btnSalvar.disabled = false;
+            }
+        }
+
+        // ── SALVAR PREFERÊNCIAS ───────────────────────────────────────────
+
+        async function salvarPreferencias() {
+            const btnSalvar = elements.btnSalvar;
+            btnSalvar.classList.add('carregando');
+            btnSalvar.disabled = true;
+
+            try {
+                const payload = {
+                    cor: corSelecionada,
+                    animacoes: elements.toggleAnimacoes.checked ? 1 : 0
+                };
+
+                const response = await fetch(`${API_URL}?acao=update_preferences`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Salvar localmente
+                    localStorage.setItem('pref_cor', corSelecionada);
+                    localStorage.setItem('pref_animacoes', payload.animacoes ? 'true' : 'false');
+
+                    if (window.Preferencias) {
+                        window.Preferencias.aplicarTudo();
+                    }
+
+                    mostrarToast(data.message, 'sucesso');
+                    elements.btnSalvar.innerHTML = '<i class="fas fa-check"></i> Salvo!';
+                    setTimeout(() => {
+                        elements.btnSalvar.innerHTML = '<span class="spinner-salvar"></span><i class="fas fa-save icone-salvar"></i> <span>Salvar alterações</span>';
+                    }, 2000);
+                } else {
+                    mostrarToast(data.message, 'erro');
+                }
+            } catch (error) {
+                console.error('Erro ao salvar preferências:', error);
+                mostrarToast('Erro ao salvar preferências', 'erro');
+            } finally {
+                btnSalvar.classList.remove('carregando');
+                btnSalvar.disabled = false;
+            }
+        }
+
+        // ── ALTERAR SENHA ──────────────────────────────────────────────────
+
+        async function alterarSenha() {
+            const senhaAtual = elements.senhaAtual.value;
+            const novaSenha = elements.novaSenha.value;
+            const confirmarSenha = elements.confirmarNovaSenha.value;
+
+            if (!senhaAtual || !novaSenha || !confirmarSenha) {
+                mostrarModalMensagem('Preencha todos os campos', 'erro');
+                return;
+            }
+
+            if (novaSenha !== confirmarSenha) {
+                mostrarModalMensagem('As senhas não coincidem', 'erro');
+                return;
+            }
+
+            if (novaSenha.length < 6) {
+                mostrarModalMensagem('A nova senha deve ter pelo menos 6 caracteres', 'erro');
+                return;
+            }
+
+            const btnSalvar = elements.modalSenhaSalvar;
+            btnSalvar.disabled = true;
+            btnSalvar.textContent = 'Salvando...';
+
+            try {
+                const response = await fetch(`${API_URL}?acao=update_password`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ senha_atual: senhaAtual, nova_senha: novaSenha, confirmar_senha: confirmarSenha })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    mostrarModalMensagem(data.message, 'sucesso');
+                    elements.senhaAtual.value = '';
+                    elements.novaSenha.value = '';
+                    elements.confirmarNovaSenha.value = '';
+                    setTimeout(() => fecharModalSenha(), 1500);
+                } else {
+                    mostrarModalMensagem(data.message, 'erro');
+                }
+            } catch (error) {
+                console.error('Erro ao alterar senha:', error);
+                mostrarModalMensagem('Erro ao conectar com o servidor', 'erro');
+            } finally {
+                btnSalvar.disabled = false;
+                btnSalvar.textContent = 'Salvar';
+            }
+        }
+
+        function mostrarModalMensagem(mensagem, tipo) {
+            const el = elements.modalSenhaMensagem;
+            el.textContent = mensagem;
+            el.style.display = 'block';
+            el.style.background = tipo === 'erro' ? 'rgba(239,68,68,0.15)' : 'rgba(34,197,94,0.15)';
+            el.style.color = tipo === 'erro' ? '#ef4444' : '#22c55e';
+            el.style.border = tipo === 'erro' ? '1px solid rgba(239,68,68,0.3)' : '1px solid rgba(34,197,94,0.3)';
+        }
+
+        function abrirModalSenha() {
+            elements.modalSenha.style.display = 'flex';
+            elements.modalSenhaMensagem.style.display = 'none';
+            elements.senhaAtual.value = '';
+            elements.novaSenha.value = '';
+            elements.confirmarNovaSenha.value = '';
+            elements.senhaAtual.focus();
+        }
+
+        function fecharModalSenha() {
+            elements.modalSenha.style.display = 'none';
+        }
+
+        // ── EDIÇÃO INLINE ──────────────────────────────────────────────────
+
+        function abrirModoEdicao(campo) {
+            const container = document.querySelector(`.opcao-config[data-campo="${campo}"]`);
+            if (!container) return;
+            container.classList.add('editando');
+
+            // Focar no input
+            const input = container.querySelector('.campo-edicao');
+            if (input) setTimeout(() => input.focus(), 100);
+        }
+
+        function fecharModoEdicao(campo) {
+            if (campo) {
+                const container = document.querySelector(`.opcao-config[data-campo="${campo}"]`);
+                if (container) container.classList.remove('editando');
+            } else {
+                document.querySelectorAll('.opcao-config.editando').forEach(el => {
+                    el.classList.remove('editando');
+                });
+            }
+        }
+
+        async function salvarEdicaoInline(campo) {
+            const container = document.querySelector(`.opcao-config[data-campo="${campo}"]`);
+            if (!container) return;
+
+            const input = container.querySelector('.campo-edicao');
+            const valor = input.value.trim();
+
+            if (!valor) {
+                mostrarToast('Este campo não pode estar vazio', 'erro');
+                return;
+            }
+
+            await salvarDadosUsuario(campo, valor);
+        }
+
+        // ── EXCLUIR CONTA ──────────────────────────────────────────────────
+
+        async function excluirConta() {
+            if (!confirm('⚠️ Tem certeza que deseja excluir sua conta permanentemente? Esta ação não pode ser desfeita.')) {
+                return;
+            }
+
+            if (!confirm('Digite "EXCLUIR" para confirmar')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}?acao=delete`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    localStorage.removeItem('usuarioLogado');
+                    localStorage.removeItem('pref_cor');
+                    localStorage.removeItem('pref_animacoes');
+                    mostrarToast('Conta excluída com sucesso', 'sucesso');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 1500);
+                } else {
+                    mostrarToast(data.message, 'erro');
+                }
+            } catch (error) {
+                console.error('Erro ao excluir conta:', error);
+                mostrarToast('Erro ao excluir conta', 'erro');
+            }
+        }
+
+        // ── EVENTOS ────────────────────────────────────────────────────────
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Aplicar a preferência local imediatamente e sincronizar com a API em seguida
+            carregarPreferenciasLocal();
+
+            // Carregar dados do usuário
+            carregarDadosUsuario();
+
+            // ── Interação com o Círculo Cromático ──
+            let arrastandoCirculo = false;
+            if (elements.circuloCor) {
+                elements.circuloCor.addEventListener('mousedown', (e) => {
+                    arrastandoCirculo = true;
+                    manipularInteracaoCirculo(e);
+                });
+                elements.circuloCor.addEventListener('touchstart', (e) => {
+                    arrastandoCirculo = true;
+                    manipularInteracaoCirculo(e);
+                }, { passive: true });
+            }
+
+            window.addEventListener('mousemove', (e) => {
+                if (arrastandoCirculo) manipularInteracaoCirculo(e);
+            });
+            window.addEventListener('mouseup', () => {
+                arrastandoCirculo = false;
+            });
+            window.addEventListener('touchmove', (e) => {
+                if (arrastandoCirculo) manipularInteracaoCirculo(e);
+            }, { passive: true });
+            window.addEventListener('touchend', () => {
+                arrastandoCirculo = false;
+            });
+
+            // Seletor de cores nativo inline na seção de Aparência (sem overlay ou modal)
+
+            // ── Sliders de Saturação e Luminosidade ──
+            if (elements.rangeSat) {
+                elements.rangeSat.addEventListener('input', (e) => {
+                    satAtual = parseInt(e.target.value);
+                    elements.valorSat.textContent = `${satAtual}%`;
+                    atualizarCorPorHsl(hueAtual, satAtual, lumAtual, false);
+                });
+            }
+
+            if (elements.rangeLum) {
+                elements.rangeLum.addEventListener('input', (e) => {
+                    lumAtual = parseInt(e.target.value);
+                    elements.valorLum.textContent = `${lumAtual}%`;
+                    atualizarCorPorHsl(hueAtual, satAtual, lumAtual, false);
+                });
+            }
+
+            // ── Resetar cor ──
+            if (elements.btnResetCor) {
+                elements.btnResetCor.addEventListener('click', () => {
+                    const hsl = hexParaHsl(COR_PADRAO);
+                    atualizarCorPorHsl(hsl.h, hsl.s, hsl.l);
+                    mostrarToast('Cor restaurada para o padrão');
+                });
+            }
+
+            // ── Paleta de Cores Padrão (Presets) ──
+            document.querySelectorAll('.circulo-cromatico__cor-preset').forEach(botaoPreset => {
+                botaoPreset.addEventListener('click', () => {
+                    const corHex = botaoPreset.dataset.cor;
+                    if (corHex) {
+                        const hsl = hexParaHsl(corHex);
+                        if (hsl) {
+                            atualizarCorPorHsl(hsl.h, hsl.s, hsl.l, true, corHex.toLowerCase());
+                            mostrarToast(`Cor aplicada: ${corHex}`);
+                        }
+                    }
+                });
+            });
+
+            // ── Toggle de animações ──
+            elements.toggleAnimacoes.addEventListener('change', (e) => {
+                if (!e.target.checked) {
+                    document.body.classList.add('sem-animacoes');
+                } else {
+                    document.body.classList.remove('sem-animacoes');
+                }
+            });
+
+            // ── Salvar preferências ──
+            elements.btnSalvar.addEventListener('click', salvarPreferencias);
+
+            // ── Botões de edição inline ──
+            document.querySelectorAll('.btn-editar').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const campo = btn.dataset.campo;
+                    abrirModoEdicao(campo);
+                });
+            });
+
+            document.querySelectorAll('.btn-cancelar-edicao').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const campo = btn.dataset.campo;
+                    fecharModoEdicao(campo);
+                    // Restaurar valor original
+                    const container = document.querySelector(`.opcao-config[data-campo="${campo}"]`);
+                    if (container) {
+                        const input = container.querySelector('.campo-edicao');
+                        if (input && dadosUsuario[campo]) {
+                            input.value = dadosUsuario[campo];
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('.btn-salvar-edicao').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const campo = btn.dataset.campo;
+                    salvarEdicaoInline(campo);
+                });
+            });
+
+            // Enter nos campos de edição
+            document.querySelectorAll('.campo-edicao').forEach(input => {
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        const container = input.closest('.opcao-config');
+                        const campo = container?.dataset.campo;
+                        if (campo) salvarEdicaoInline(campo);
+                    }
+                    if (e.key === 'Escape') {
+                        const container = input.closest('.opcao-config');
+                        const campo = container?.dataset.campo;
+                        if (campo) fecharModoEdicao(campo);
+                    }
+                });
+            });
+
+            // ── Alterar senha ──
+            elements.btnAlterarSenha.addEventListener('click', abrirModalSenha);
+            elements.modalSenhaCancelar.addEventListener('click', fecharModalSenha);
+            elements.modalSenhaSalvar.addEventListener('click', alterarSenha);
+
+            // Fechar modal com ESC
+            elements.modalSenha.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') fecharModalSenha();
+            });
+
+            // ── Excluir conta ──
+            elements.btnExcluirConta.addEventListener('click', excluirConta);
+
+            // ── Toast ao clicar ──
+            elements.toast.addEventListener('click', () => {
+                elements.toast.classList.remove('visivel');
+            });
+
+            // ── Foto de perfil ──
+            elements.btnAlterarFoto.addEventListener('click', () => {
+                mostrarToast('Função de upload de foto em desenvolvimento', 'sucesso');
+            });
+
+            elements.btnRemoverFoto.addEventListener('click', () => {
+                if (confirm('Deseja remover sua foto de perfil?')) {
+                    elements.fotoPerfil.src = '../assets/img/default-avatar.png';
+                    mostrarToast('Foto removida com sucesso', 'sucesso');
+                }
+            });
+        });
+    </script>
+
+    <!-- PixelBlast Background Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../assets/js/PixelBlast.js"></script>
+</body>
+
+</html>

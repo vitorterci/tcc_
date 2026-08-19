@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-path" content="../">
+    <title>Game Search — Perfil</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Seção de Perfil ── */
+        
+        .secao-perfil {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            animation: fadeInUp 0.45s ease both;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+            letter-spacing: 0.06em;
+            margin-bottom: 4px;
+        }
+        
+        .breadcrumb a {
+            color: var(--cor-texto-muted);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--cor-primaria);
+        }
+        
+        .breadcrumb i {
+            font-size: 0.6rem;
+        }
+        
+        .breadcrumb span {
+            color: var(--cor-texto);
+        }
+        
+        .perfil-header {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            background-color: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            padding: 24px 28px;
+            box-shadow: var(--shadow-card);
+            flex-wrap: wrap;
+        }
+        
+        .avatar-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .avatar-circulo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: white;
+            box-shadow: var(--shadow-glow);
+            border: 3px solid rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.4);
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-primaria-hover));
+            overflow: hidden;
+        }
+        
+        .avatar-circulo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .avatar-circulo .icone-fallback {
+            font-size: 2.8rem;
+        }
+        
+        .btn-editar-avatar {
+            position: absolute;
+            bottom: -2px;
+            right: -6px;
+            width: 32px;
+            height: 32px;
+            background-color: var(--cor-lateral);
+            border: 2px solid var(--cor-primaria);
+            border-radius: 50%;
+            color: var(--cor-primaria);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .btn-editar-avatar:hover {
+            background-color: var(--cor-primaria);
+            color: #fff;
+        }
+        
+        .perfil-info {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .perfil-nome {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-xl);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            margin-bottom: 2px;
+        }
+        
+        .perfil-usuario {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-sm);
+            color: var(--cor-texto-muted);
+            margin-bottom: 8px;
+        }
+        
+        .perfil-email {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-sm);
+            color: var(--cor-texto-muted);
+            margin-bottom: 4px;
+        }
+        
+        .perfil-data {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+        }
+        
+        .perfil-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .stat-valor {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-lg);
+            font-weight: 700;
+            color: var(--cor-primaria);
+        }
+        
+        .stat-label {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        
+        .perfil-acoes {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .perfil-acoes .btn-primario,
+        .perfil-acoes .btn-secundario {
+            font-size: var(--fs-xs);
+            padding: 8px 20px;
+        }
+        
+        .perfil-aba-conteudo {
+            background-color: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            min-height: 200px;
+        }
+        
+        .perfil-aba-conteudo .estado-vazio {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--cor-texto-muted);
+        }
+        
+        .perfil-aba-conteudo .estado-vazio i {
+            font-size: 2.5rem;
+            color: rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.4);
+            margin-bottom: 12px;
+            display: block;
+        }
+        
+        .perfil-aba-conteudo .estado-vazio p {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-base);
+            letter-spacing: 0.08em;
+        }
+        
+        .jogo-favorito-tag {
+            display: inline-block;
+            background: var(--cor-tag);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius-xl);
+            padding: 6px 16px;
+            margin: 4px 8px 4px 0;
+            font-size: var(--fs-xs);
+            font-weight: 600;
+            color: var(--cor-texto);
+        }
+        
+        .preferencia-tag {
+            display: inline-block;
+            background: rgba(46, 0, 230, 0.2);
+            border: 1px solid rgba(46, 0, 230, 0.3);
+            border-radius: var(--border-radius-xl);
+            padding: 4px 14px;
+            margin: 4px 8px 4px 0;
+            font-size: var(--fs-xs);
+            font-weight: 600;
+            color: var(--cor-texto-muted);
+        }
+        
+        .perfil-abas {
+            display: flex;
+            gap: 4px;
+            background-color: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius-xl);
+            padding: 5px;
+            width: fit-content;
+            flex-wrap: wrap;
+        }
+        
+        .aba-btn {
+            background: none;
+            border: none;
+            color: var(--cor-texto-muted);
+            padding: 8px 22px;
+            border-radius: var(--border-radius-xl);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: lowercase;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        .aba-btn:hover {
+            color: var(--cor-texto);
+        }
+        
+        .aba-btn.ativo {
+            background-color: var(--cor-primaria);
+            color: #fff;
+            box-shadow: var(--shadow-glow);
+        }
+        
+        @media (max-width: 600px) {
+            .perfil-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            .perfil-stats {
+                justify-content: center;
+            }
+            .perfil-acoes {
+                justify-content: center;
+            }
+            .avatar-circulo {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            .perfil-nome {
+                font-size: var(--fs-lg);
+            }
+            .perfil-abas {
+                width: 100%;
+                justify-content: center;
+            }
+            .aba-btn {
+                padding: 6px 14px;
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../assets/css/PixelBlast.css">
+</head>
+
+<body>
+    <div class="layout-principal">
+
+        <!-- Sidebar -->
+        <aside class="barra-lateral" id="sidebarDrawer">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo2.png" alt="Game Search">
+            </div>
+
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Navegação Principal</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="../index.html"><i class="fas fa-home"></i><span>Início</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Informações</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="sobre.html"><i class="fas fa-users"></i><span>Sobre nós</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Usuário</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i><span>Entrar</span></a></li>
+                        <li class="ativo"><a href="perfil.html"><i class="fas fa-user"></i><span>Perfil</span></a></li>
+                        <li><a href="configuracao.html"><i class="fas fa-cog"></i><span>Configurações</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Suporte</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="feedback.html"><i class="fas fa-envelope"></i><span>Feedback</span></a></li>
+                        <li><a href="ajuda.html"><i class="fas fa-question-circle"></i><span>Ajuda</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <div class="drawer-overlay" id="drawerOverlay"></div>
+
+        <main class="conteudo-principal">
+
+            <header class="barra-superior">
+                <div class="container-busca">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="BUSCAR" class="campo-busca" autocomplete="off">
+                </div>
+            </header>
+
+            <section class="secao-perfil">
+
+                <nav class="breadcrumb" aria-label="Navegação">
+                    <a href="../index.html"><i class="fas fa-home"></i> Início</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Perfil</span>
+                </nav>
+
+                <!-- Header do perfil -->
+                <div class="perfil-header" id="perfilHeader">
+                    <div class="avatar-wrapper">
+                        <div class="avatar-circulo" id="avatarContainer">
+                            <i class="fas fa-user icone-fallback" id="avatarFallback"></i>
+                            <img id="avatarImg" style="display:none;" alt="Foto do usuário">
+                        </div>
+                        <button class="btn-editar-avatar" title="Editar foto" id="editarAvatar">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="perfil-info">
+                        <h1 class="perfil-nome" id="perfilNome">Carregando...</h1>
+                        <p class="perfil-usuario" id="perfilUsuario">@carregando</p>
+                        <p class="perfil-email" id="perfilEmail">carregando@email.com</p>
+                        <p class="perfil-data" id="perfilData">Membro desde: --</p>
+                        
+                        <div class="perfil-stats">
+                            <div class="stat-item">
+                                <span class="stat-valor" id="statJogos">0</span>
+                                <span class="stat-label">Jogos</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-valor" id="statFavoritos">0</span>
+                                <span class="stat-label">Favoritos</span>
+                            </div>
+                            <div class="stat-item" id="statCargo">
+                                <span class="stat-valor" id="cargoValor">-</span>
+                                <span class="stat-label">Cargo</span>
+                            </div>
+                        </div>
+
+                        <div class="perfil-acoes">
+                            <button class="btn-primario" id="btnEditarPerfil">
+                                <i class="fas fa-edit"></i> Editar Perfil
+                            </button>
+                            <button class="btn-secundario" id="btnAlterarSenha">
+                                <i class="fas fa-key"></i> Alterar Senha
+                            </button>
+                            <button class="btn-secundario" type="button" data-logout>
+                                <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sair
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abas -->
+                <div class="perfil-abas" role="tablist">
+                    <button class="aba-btn ativo" data-aba="jogos">Meus Jogos</button>
+                    <button class="aba-btn" data-aba="favoritos">Favoritos</button>
+                    <button class="aba-btn" data-aba="preferencias">Preferências</button>
+                </div>
+
+                <!-- Conteúdo das Abas -->
+                <div class="perfil-aba-conteudo" id="abaConteudo">
+                    <div id="aba-jogos">
+                        <div class="estado-vazio">
+                            <i class="fas fa-gamepad"></i>
+                            <p>Nenhum jogo cadastrado ainda.</p>
+                            <p style="font-size:var(--fs-xs); color:var(--cor-texto-muted);">Explore a loja e adicione seus jogos!</p>
+                        </div>
+                    </div>
+                    <div id="aba-favoritos" style="display:none;">
+                        <div class="estado-vazio">
+                            <i class="fas fa-heart"></i>
+                            <p>Nenhum jogo favorito ainda.</p>
+                            <p style="font-size:var(--fs-xs); color:var(--cor-texto-muted);">Marque seus jogos favoritos para vê-los aqui!</p>
+                        </div>
+                    </div>
+                    <div id="aba-preferencias" style="display:none;">
+                        <div class="estado-vazio">
+                            <i class="fas fa-sliders-h"></i>
+                            <p>Nenhuma preferência cadastrada.</p>
+                            <p style="font-size:var(--fs-xs); color:var(--cor-texto-muted);">Configure suas preferências em Configurações.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="../assets/js/global.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // ── Elementos ──
+            const perfilNome = document.getElementById('perfilNome');
+            const perfilUsuario = document.getElementById('perfilUsuario');
+            const perfilEmail = document.getElementById('perfilEmail');
+            const perfilData = document.getElementById('perfilData');
+            const statJogos = document.getElementById('statJogos');
+            const statFavoritos = document.getElementById('statFavoritos');
+            const cargoValor = document.getElementById('cargoValor');
+            const avatarFallback = document.getElementById('avatarFallback');
+            const avatarImg = document.getElementById('avatarImg');
+            const btnEditarPerfil = document.getElementById('btnEditarPerfil');
+            const btnAlterarSenha = document.getElementById('btnAlterarSenha');
+
+            // ── Abas ──
+            const botoesAba = document.querySelectorAll('.aba-btn');
+            const conteudos = {
+                jogos: document.getElementById('aba-jogos'),
+                favoritos: document.getElementById('aba-favoritos'),
+                preferencias: document.getElementById('aba-preferencias')
+            };
+
+            botoesAba.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    botoesAba.forEach(b => b.classList.remove('ativo'));
+                    btn.classList.add('ativo');
+                    
+                    const aba = btn.dataset.aba;
+                    Object.keys(conteudos).forEach(key => {
+                        conteudos[key].style.display = key === aba ? 'block' : 'none';
+                    });
+                });
+            });
+
+            // ── Carregar dados do usuário autenticado ──
+            let usuario;
+            try {
+                const resposta = await fetch('../php/api/user.php?acao=get', {
+                    credentials: 'include'
+                });
+                const dados = await resposta.json();
+
+                if (!dados.success) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                usuario = dados.user;
+            } catch (erro) {
+                console.error('Erro ao carregar dados do perfil:', erro);
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // ── Preencher perfil ──
+            perfilNome.textContent = usuario.nome || 'Usuário';
+            perfilUsuario.textContent = `@${usuario.usuario || 'usuario'}`;
+            perfilEmail.textContent = usuario.email || 'email@exemplo.com';
+            
+            // Data de cadastro
+            if (usuario.data_cadastro) {
+                const data = new Date(usuario.data_cadastro);
+                perfilData.textContent = `Membro desde: ${data.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}`;
+            }
+
+            // Stats
+            statJogos.textContent = usuario.jogos_cadastrados || 0;
+            statFavoritos.textContent = (usuario.jogos_favoritos || []).length;
+            
+            if (usuario.cargo) {
+                cargoValor.textContent = usuario.cargo;
+                document.getElementById('statCargo').style.display = 'flex';
+            } else {
+                document.getElementById('statCargo').style.display = 'none';
+            }
+
+            // Avatar: o endpoint atual usa foto_perfil; foto é aceito para compatibilidade.
+            const foto = usuario.foto_perfil || usuario.foto;
+            if (foto && !foto.endsWith('default-avatar.png')) {
+                avatarImg.src = foto.startsWith('http') || foto.startsWith('/')
+                    ? foto
+                    : `../${foto.replace(/^\.\//, '')}`;
+                avatarImg.style.display = 'block';
+                avatarFallback.style.display = 'none';
+            } else {
+                avatarImg.style.display = 'none';
+                avatarFallback.style.display = 'block';
+                // Pegar inicial do nome para mostrar
+                const inicial = (usuario.nome || 'U')[0].toUpperCase();
+                avatarFallback.textContent = inicial;
+                avatarFallback.style.fontSize = '3rem';
+                avatarFallback.style.fontWeight = '700';
+            }
+
+            // ── Preencher jogos favoritos ──
+            const favContainer = document.getElementById('aba-favoritos');
+            const favs = usuario.jogos_favoritos || [];
+            
+            if (favs.length > 0) {
+                favContainer.innerHTML = `
+                    <div style="padding: 8px 0;">
+                        <p style="font-size:var(--fs-sm); color:var(--cor-texto-muted); margin-bottom: 12px;">
+                            <i class="fas fa-heart" style="color:#ef4444;"></i> 
+                            ${favs.length} jogo${favs.length > 1 ? 's' : ''} favorito${favs.length > 1 ? 's' : ''}
+                        </p>
+                        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                            ${favs.map(nome => `<span class="jogo-favorito-tag"><i class="fas fa-star" style="color:#fbbf24; margin-right:4px;"></i> ${nome}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // ── Preencher preferências ──
+            const prefContainer = document.getElementById('aba-preferencias');
+            const prefs = usuario.preferencias || [];
+            
+            if (prefs.length > 0) {
+                prefContainer.innerHTML = `
+                    <div style="padding: 8px 0;">
+                        <p style="font-size:var(--fs-sm); color:var(--cor-texto-muted); margin-bottom: 12px;">
+                            <i class="fas fa-sliders-h" style="color:var(--cor-primaria);"></i> 
+                            Preferências do usuário
+                        </p>
+                        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                            ${prefs.map(pref => `<span class="preferencia-tag"><i class="fas fa-check" style="color:#4ade80; margin-right:4px;"></i> ${pref}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // ── Ações ──
+            btnEditarPerfil.addEventListener('click', () => {
+                window.location.href = 'configuracao.html';
+            });
+
+            btnAlterarSenha.addEventListener('click', () => {
+                window.location.href = 'configuracao.html?tab=senha';
+            });
+
+            document.getElementById('editarAvatar').addEventListener('click', () => {
+                alert('Funcionalidade de edição de avatar em desenvolvimento.');
+            });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../assets/js/PixelBlast.js"></script>
+</body>
+
+</html>

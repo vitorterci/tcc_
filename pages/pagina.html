@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-path" content="../">
+    <title>Game Search — Detalhes do Jogo</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Layout de Detalhes ── */
+        
+        .detalhes-jogo {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            width: 100%;
+            max-width: 1000px;
+            animation: fadeInUp 0.45s ease both;
+        }
+        /* Breadcrumb */
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            color: var(--cor-texto-muted);
+            letter-spacing: 0.06em;
+        }
+        
+        .breadcrumb a {
+            color: var(--cor-texto-muted);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--cor-primaria);
+        }
+        
+        .breadcrumb i {
+            font-size: 0.6rem;
+        }
+        
+        .breadcrumb span {
+            color: var(--cor-texto);
+        }
+        /* Grid principal */
+        
+        .grid-detalhes {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        /* Coluna capa */
+        
+        .capa-moldura {
+            width: 100%;
+            aspect-ratio: 2/3;
+            background-color: var(--cor-lateral);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid var(--cor-borda);
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+        }
+        
+        .capa-moldura img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        /* Badge na capa */
+        
+        .capa-wrapper {
+            position: relative;
+        }
+        /* Coluna info */
+        
+        .coluna-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .info-titulo {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-2xl);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            line-height: 1.15;
+        }
+        
+        .info-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag-meta {
+            background-color: var(--cor-tag);
+            border: 1px solid var(--cor-borda);
+            color: var(--cor-texto-muted);
+            padding: 5px 14px;
+            border-radius: var(--border-radius-xl);
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .tag-meta i {
+            color: var(--cor-primaria);
+            font-size: 0.75rem;
+        }
+        
+        .info-descricao-label {
+            font-family: var(--font-titulo);
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--cor-texto-muted);
+            margin-bottom: 4px;
+        }
+        
+        .info-descricao-texto {
+            font-family: var(--font-corpo);
+            font-size: var(--fs-base);
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            background-color: var(--cor-lateral);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--border-radius);
+            padding: 18px 22px;
+        }
+        /* Avaliações */
+        
+        .secao-avaliacoes {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .avaliacao-barra {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-family: var(--font-corpo);
+            font-size: var(--fs-xs);
+        }
+        
+        .avaliacao-label {
+            width: 90px;
+            color: var(--cor-texto-muted);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            flex-shrink: 0;
+        }
+        
+        .avaliacao-trilha {
+            flex: 1;
+            height: 6px;
+            background-color: var(--cor-hover);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .avaliacao-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--cor-primaria), var(--cor-primaria-hover));
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+        
+        .avaliacao-valor {
+            width: 32px;
+            text-align: right;
+            font-weight: 700;
+        }
+        /* Botões de ação */
+        
+        .acoes-jogo {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        /* ── Responsividade ── */
+        
+        @media (max-width: 768px) {
+            .grid-detalhes {
+                grid-template-columns: 1fr;
+            }
+            .capa-moldura {
+                max-width: 240px;
+                margin: 0 auto;
+            }
+            .info-titulo {
+                font-size: var(--fs-xl);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../assets/css/PixelBlast.css">
+</head>
+
+<body>
+    <div class="layout-principal">
+
+        <!-- Sidebar -->
+        <aside class="barra-lateral">
+            <div class="sidebar-logo">
+                <img src="../assets/img/logo2.png" alt="Game Search">
+            </div>
+
+            <!-- Navegacao Principal -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Navegacao Principal</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="../index.html"><i class="fas fa-home"></i><span>Inicio</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Informacoes -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Informacoes</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="sobre.html"><i class="fas fa-users"></i><span>Sobre nos</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Usuario -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Usuario</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i><span>Entrar</span></a></li>
+                        <li><a href="perfil.html"><i class="fas fa-user"></i><span>Perfil</span></a></li>
+                        <li><a href="configuracao.html"><i class="fas fa-cog"></i><span>Configuracoes</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Suporte -->
+            <div class="sidebar-secao">
+                <h3 class="sidebar-titulo">Suporte</h3>
+                <nav class="menu-navegacao">
+                    <ul>
+                        <li><a href="Feedback.html"><i class="fas fa-envelope"></i><span>Feedback</span></a></li>
+                        <li><a href="ajuda.html"><i class="fas fa-question-circle"></i><span>Ajuda</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Conteúdo -->
+        <main class="conteudo-principal">
+
+            <header class="barra-superior">
+                <div class="container-busca">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="BUSCAR" class="campo-busca" autocomplete="off">
+                </div>
+            </header>
+
+            <section class="detalhes-jogo">
+
+                <!-- Breadcrumb -->
+                <nav class="breadcrumb" aria-label="Navegação">
+                    <a href="../index.html"><i class="fas fa-home"></i> Início</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span id="breadcrumb-nome">Nome do Jogo</span>
+                </nav>
+
+                <!-- Grid principal -->
+                <div class="grid-detalhes">
+                    <div class="capa-wrapper">
+                        <div class="capa-moldura">
+                            <img src="../assets/img/naoencontrada.png" alt="Capa do jogo" id="jogo-capa" loading="lazy">
+                        </div>
+                        <span class="badge-etaria etaria-L" id="jogo-etaria">L</span>
+                    </div>
+
+                    <div class="coluna-info">
+                        <h1 class="info-titulo" id="jogo-titulo">Nome do Jogo</h1>
+
+                        <div class="info-meta">
+                            <span class="tag-meta"><i class="fas fa-gamepad"></i> <span id="jogo-plataforma">Plataforma</span></span>
+                            <span class="tag-meta"><i class="fas fa-ghost"></i> <span id="jogo-genero">Gênero</span></span>
+                            <span class="tag-meta"><i class="fas fa-calendar"></i> <span id="jogo-ano">2024</span></span>
+                        </div>
+
+                        <div>
+                            <p class="info-descricao-label">Sobre o jogo</p>
+                            <p class="info-descricao-texto" id="jogo-descricao">
+                                Descrição do jogo aparece aqui. Informações sobre a história, mecânicas e características principais do título.
+                            </p>
+                        </div>
+
+                        <div class="secao-avaliacoes">
+                            <p class="info-descricao-label">Avaliações</p>
+                            <div class="avaliacao-barra">
+                                <span class="avaliacao-label">Gameplay</span>
+                                <div class="avaliacao-trilha">
+                                    <div class="avaliacao-fill" style="width:80%"></div>
+                                </div>
+                                <span class="avaliacao-valor">8.0</span>
+                            </div>
+                            <div class="avaliacao-barra">
+                                <span class="avaliacao-label">Gráficos</span>
+                                <div class="avaliacao-trilha">
+                                    <div class="avaliacao-fill" style="width:75%"></div>
+                                </div>
+                                <span class="avaliacao-valor">7.5</span>
+                            </div>
+                            <div class="avaliacao-barra">
+                                <span class="avaliacao-label">História</span>
+                                <div class="avaliacao-trilha">
+                                    <div class="avaliacao-fill" style="width:70%"></div>
+                                </div>
+                                <span class="avaliacao-valor">7.0</span>
+                            </div>
+                        </div>
+
+                        <div class="acoes-jogo">
+                            <button class="btn-primario">
+                                <i class="fas fa-heart"></i> Adicionar à lista
+                            </button>
+                            <button class="btn-secundario">
+                                <i class="fas fa-share-alt"></i> Compartilhar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Overlay para fechar o drawer -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <!-- Botão Hambúrguer -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="../assets/js/global.js"></script>
+    <script src="../assets/js/detalhes-jogo.js"></script>
+    <!-- PixelBlast Background Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../assets/js/PixelBlast.js"></script>
+</body>
+
+</html>
