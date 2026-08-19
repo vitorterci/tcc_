@@ -38,7 +38,7 @@
         }
         
         .breadcrumb a:hover {
-            color: var(--cor-primaria);
+            color: var(--cor-texto-destaque);
         }
         
         .breadcrumb i {
@@ -74,7 +74,7 @@
             align-items: center;
             justify-content: center;
             font-size: 2.8rem;
-            color: white;
+            color: var(--cor-texto-sobre-destaque);
             box-shadow: var(--shadow-glow);
             border: 3px solid rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.4);
             background: linear-gradient(135deg, var(--cor-primaria), var(--cor-primaria-hover));
@@ -100,7 +100,7 @@
             background-color: var(--cor-lateral);
             border: 2px solid var(--cor-primaria);
             border-radius: 50%;
-            color: var(--cor-primaria);
+            color: var(--cor-texto-destaque);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -111,7 +111,7 @@
         
         .btn-editar-avatar:hover {
             background-color: var(--cor-primaria);
-            color: #fff;
+            color: var(--cor-texto-sobre-destaque);
         }
         
         .perfil-info {
@@ -164,7 +164,7 @@
             font-family: var(--font-titulo);
             font-size: var(--fs-lg);
             font-weight: 700;
-            color: var(--cor-primaria);
+            color: var(--cor-texto-destaque);
         }
         
         .stat-label {
@@ -205,7 +205,7 @@
         
         .perfil-aba-conteudo .estado-vazio i {
             font-size: 2.5rem;
-            color: rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.4);
+            color: var(--cor-texto-destaque);
             margin-bottom: 12px;
             display: block;
         }
@@ -272,7 +272,7 @@
         
         .aba-btn.ativo {
             background-color: var(--cor-primaria);
-            color: #fff;
+            color: var(--cor-texto-sobre-destaque);
             box-shadow: var(--shadow-glow);
         }
         
@@ -585,7 +585,7 @@
                 prefContainer.innerHTML = `
                     <div style="padding: 8px 0;">
                         <p style="font-size:var(--fs-sm); color:var(--cor-texto-muted); margin-bottom: 12px;">
-                            <i class="fas fa-sliders-h" style="color:var(--cor-primaria);"></i>
+                            <i class="fas fa-sliders-h" style="color:var(--cor-texto-destaque);"></i>
                             Preferências do usuário
                         </p>
                         <div style="display:flex; flex-wrap:wrap; gap:8px;">
