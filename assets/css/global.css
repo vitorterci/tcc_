@@ -19,7 +19,7 @@
         }
         
         .breadcrumb a:hover {
-            color: var(--cor-primaria);
+            color: var(--cor-texto-destaque);
         }
         
         .breadcrumb i {
@@ -227,6 +227,7 @@
 .botao-filtro-principal.ativo {
     background-color: var(--cor-primaria);
     border-color: var(--cor-primaria);
+    color: var(--cor-texto-sobre-destaque);
     box-shadow: var(--shadow-glow);
 }
 
@@ -269,6 +270,7 @@
 .opcao-filtro.selecionada {
     background-color: var(--cor-primaria);
     border-color: var(--cor-primaria);
+    color: var(--cor-texto-sobre-destaque);
 }
 /* ── Grade de jogos ── */
 
@@ -548,7 +550,7 @@
 
 .card-jogo-titulo a:hover,
 .card-jogo-titulo a:focus {
-    color: var(--cor-primaria);
+    color: var(--cor-texto-destaque);
     text-decoration: underline;
 }
 
@@ -585,7 +587,7 @@
 
 .info-tag i {
     font-size: 0.75rem;
-    color: var(--cor-primaria);
+    color: var(--cor-texto-destaque);
     opacity: 1;
 }
 
@@ -614,7 +616,7 @@
 .botao-detalhes {
     align-self: flex-start;
     background: var(--cor-primaria);
-    color: var(--cor-texto);
+    color: var(--cor-texto-sobre-destaque);
     border: none;
     border-radius: var(--border-radius-xl);
     padding: 6px 18px;
@@ -632,6 +634,7 @@
 
 .botao-detalhes:hover {
     background: var(--cor-primaria-hover);
+    color: var(--cor-texto-sobre-destaque-hover);
     box-shadow: var(--shadow-glow);
     transform: translateY(-2px);
 }
@@ -793,6 +796,15 @@ html {
     --cor-lateral: #1a1a2e;
     --cor-primaria: #2e00e6;
     --cor-primaria-hover: #4a1fff;
+    /* Textos não dependem diretamente da cor de destaque. */
+    --cor-texto-destaque: #a5b4fc;
+    --cor-texto-destaque-hover: #c4b5fd;
+    --cor-texto-sobre-destaque: #000000;
+    --cor-texto-sobre-destaque-hover: #000000;
+    --cor-texto-sobre-fundo-claro: #111827;
+    --cor-texto-sobre-fundo-claro-hover: #1f2937;
+    --cor-link-fundo-claro: #3730a3;
+    --cor-link-fundo-claro-hover: #312e81;
     --cor-texto: #ffffff;
     --cor-texto-muted: rgba(255, 255, 255, 0.6);
     --cor-hover: #2a2a4a;
@@ -963,7 +975,7 @@ html {
                  font-weight: 700;
                  letter-spacing: 0.12em;
                  text-transform: uppercase;
-                 color: var(--cor-primaria);
+                 color: var(--cor-texto-destaque);
                  margin: 0;
                  padding: 0 8px;
                  display: flex;
@@ -1050,7 +1062,7 @@ html {
              }
              
              .menu-navegacao li a:hover i {
-                 color: var(--cor-primaria);
+                 color: var(--cor-texto-destaque);
              }
 
              .menu-navegacao li .botao-sair:hover {
@@ -1076,7 +1088,7 @@ html {
              }
              
              .menu-navegacao li.ativo a i {
-                 color: var(--cor-primaria);
+                 color: var(--cor-texto-destaque);
              }
              
              .separador {
@@ -1193,7 +1205,7 @@ html {
              
              .btn-primario {
                  background-color: var(--cor-primaria);
-                 color: var(--cor-texto);
+                 color: var(--cor-texto-sobre-destaque);
                  border: none;
                  padding: 10px 28px;
                  border-radius: var(--border-radius-xl);
@@ -1208,6 +1220,7 @@ html {
              
              .btn-primario:hover {
                  background-color: var(--cor-primaria-hover);
+                 color: var(--cor-texto-sobre-destaque-hover);
                  box-shadow: var(--shadow-glow-hover);
                  transform: translateY(-2px);
              }
@@ -1719,6 +1732,7 @@ html {
              .opcao-filtro.selecionada {
                  background-color: var(--cor-primaria);
                  border-color: var(--cor-primaria);
+                 color: var(--cor-texto-sobre-destaque);
              }
              /* ─── RESPONSIVIDADE DOS MENUS ──────────────────────────────────────────────── */
              
@@ -1900,9 +1914,9 @@ html {
              .hamburger-btn:hover {
                  background: var(--cor-primaria);
                  border-color: var(--cor-primaria);
+                 color: var(--cor-texto-sobre-destaque);
                  box-shadow: var(--shadow-glow);
              }
-             
              .drawer-overlay {
                  display: none;
                  position: fixed;
@@ -1950,6 +1964,7 @@ html {
                  }
                  .barra-lateral .menu-navegacao ul li.ativo a {
                      background: var(--cor-primaria);
+                     color: var(--cor-texto-sobre-destaque);
                      border-radius: 0 20px 20px 0;
                      margin-right: 12px;
                  }
@@ -2162,7 +2177,7 @@ html {
 
 .card-jogo.open .menu-trigger {
     background: var(--cor-primaria);
-    color: #fff;
+    color: var(--cor-texto-sobre-destaque);
 }
 
 /* ── Ajuste para abertura à esquerda quando no limite da tela ── */
@@ -2231,7 +2246,7 @@ html {
     font-size: var(--fs-xs);
     font-weight: 700;
     text-transform: uppercase;
-    color: var(--cor-primaria-clara, #6c63ff);
+    color: var(--cor-texto-destaque);
     letter-spacing: 0.08em;
     margin-bottom: 6px;
 }
