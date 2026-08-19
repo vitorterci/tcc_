@@ -24,6 +24,9 @@ const Preferencias = {
         const textoSobreDestaque = contrasteEscuro >= contrasteClaro ? '#000000' : '#ffffff';
         const textoSobreDestaqueHover = contrasteEscuro >= contrasteClaro ? '#000000' : '#ffffff';
 
+        const corHover = this.calcularCorHover(rgb);
+
+        document.documentElement.style.setProperty('--cor-primaria-hover', corHover);
         document.documentElement.style.setProperty('--cor-primaria-rgb', rgbStr);
         document.documentElement.style.setProperty('--cor-texto-sobre-destaque', textoSobreDestaque);
         document.documentElement.style.setProperty('--cor-texto-sobre-destaque-hover', textoSobreDestaqueHover);
@@ -45,6 +48,15 @@ const Preferencias = {
         const maisClara = Math.max(luminanciaFundo, luminanciaTexto);
         const maisEscura = Math.min(luminanciaFundo, luminanciaTexto);
         return (maisClara + 0.05) / (maisEscura + 0.05);
+    },
+
+    // Gera um hover próximo à cor escolhida, sem reutilizar uma cor antiga do tema.
+    calcularCorHover({ r, g, b }) {
+        const luminancia = this.calcularLuminancia({ r, g, b });
+        const fator = luminancia > 0.5 ? 0.8 : 1.2;
+        const ajustarCanal = canal => Math.max(0, Math.min(255, Math.round(canal * fator)));
+        const canais = [ajustarCanal(r), ajustarCanal(g), ajustarCanal(b)];
+        return `#${canais.map(canal => canal.toString(16).padStart(2, '0')).join('')}`;
     },
 
     aplicarAnimacoes() {
