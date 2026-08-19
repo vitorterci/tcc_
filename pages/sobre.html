@@ -15,8 +15,7 @@
             width: 100%;
             max-width: 1000px;
             padding: 60px 40px;
-            /* Mistura a primária com o fundo para preservar contraste no herói. */
-            background: linear-gradient(135deg, color-mix(in srgb, var(--cor-primaria) 35%, var(--cor-fundo)), #1a1a4a);
+            background: linear-gradient(135deg, var(--cor-primaria), #1a1a4a);
             border-radius: var(--border-radius);
             text-align: center;
             position: relative;
@@ -71,7 +70,7 @@
         .timeline-item .year {
             font-family: var(--font-titulo);
             font-weight: 700;
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
             font-size: var(--fs-lg);
             min-width: 60px;
         }
@@ -92,7 +91,7 @@
         
         .feature-card i {
             font-size: 2rem;
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
             margin-bottom: 16px;
         }
         
@@ -124,7 +123,7 @@
         }
         
         .team-card .role {
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
             font-size: var(--fs-xs);
             font-weight: 700;
             text-transform: uppercase;
@@ -144,7 +143,7 @@
         
         .tech-card i {
             font-size: 2.5rem;
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
         }
         
         .stats-grid {
@@ -165,7 +164,7 @@
         .stat-item .number {
             font-family: var(--font-titulo);
             font-size: var(--fs-3xl);
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
             font-weight: 900;
             margin-bottom: 8px;
         }
@@ -264,7 +263,7 @@
             <!-- Missão -->
             <section class="section-spacer">
                 <div class="glass-card missao-card">
-                    <h2><i class="fas fa-bullseye" style="color:var(--cor-texto-destaque);"></i> <span>Nossa Missão</span></h2>
+                    <h2><i class="fas fa-bullseye" style="color:var(--cor-primaria);"></i> <span>Nossa Missão</span></h2>
                     <p>O Game Search foi criado para centralizar preços de jogos em diversas plataformas e facilitar a vida dos jogadores. Unimos tecnologia, design e dados para que você nunca perca uma oferta.</p>
                 </div>
             </section>

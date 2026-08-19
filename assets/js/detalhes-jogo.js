@@ -153,7 +153,7 @@ function exibirEstadoErro(mensagemMensagemErro) {
     if (secaoDetalhes) {
         secaoDetalhes.innerHTML = `
             <div class="estado-erro" style="text-align: center; padding: 60px 20px;">
-                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--cor-texto-destaque); margin-bottom: 20px;"></i>
+                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--cor-primaria); margin-bottom: 20px;"></i>
                 <h2 style="font-family: var(--font-titulo); font-size: var(--fs-xl); margin-bottom: 15px; color: var(--cor-texto);">Ops! Jogo não encontrado</h2>
                 <p style="font-family: var(--font-corpo); color: var(--cor-texto-muted); font-size: var(--fs-base); margin-bottom: 25px;">${mensagemMensagemErro}</p>
                 <a href="biblioteca.html" class="btn-primario" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; padding: 12px 24px;">

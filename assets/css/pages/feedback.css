@@ -59,7 +59,7 @@
 
 .tag-problema:hover {
     background-color: var(--cor-primaria);
-    color: var(--cor-texto-sobre-destaque);
+    color: white;
 }
 
 .suggestions-list {
@@ -78,5 +78,5 @@
 }
 
 .suggestions-list li i {
-    color: var(--cor-texto-destaque);
+    color: var(--cor-primaria);
 }

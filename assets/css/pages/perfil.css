@@ -33,7 +33,7 @@
     align-items: center;
     justify-content: center;
     font-size: 2.5rem;
-    color: var(--cor-texto-sobre-destaque);
+    color: white;
     background-color: var(--cor-primaria);
     border: 3px solid var(--cor-borda-forte);
     overflow: hidden;
@@ -54,7 +54,7 @@
     background-color: var(--cor-lateral);
     border: 2px solid var(--cor-primaria);
     border-radius: var(--radius-full);
-    color: var(--cor-texto-destaque);
+    color: var(--cor-primaria);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -65,7 +65,7 @@
 
 .btn-editar-avatar:hover {
     background-color: var(--cor-primaria);
-    color: var(--cor-texto-sobre-destaque);
+    color: #fff;
 }
 
 .perfil-info {
@@ -101,7 +101,7 @@
     font-family: var(--font-nav);
     font-size: var(--fs-lg);
     font-weight: 700;
-    color: var(--cor-texto-destaque-hover);
+    color: var(--cor-primaria-hover);
 }
 
 .stat-label {
@@ -141,7 +141,7 @@
 
 .aba-btn.ativo {
     background-color: var(--cor-primaria);
-    color: var(--cor-texto-sobre-destaque);
+    color: #fff;
 }
 
 .perfil-aba-conteudo {

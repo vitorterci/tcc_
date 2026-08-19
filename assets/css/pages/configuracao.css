@@ -26,7 +26,7 @@
 }
 
 .painel-header i {
-    color: var(--cor-texto-destaque);
+    color: var(--cor-primaria);
 }
 
 .painel-header h2 {
@@ -117,12 +117,11 @@
 
 input:checked + .toggle-slider {
     background-color: var(--cor-primaria);
-    color: var(--cor-texto-sobre-destaque);
 }
 
 input:checked + .toggle-slider:before {
     transform: translateX(22px);
-    background-color: var(--cor-texto-sobre-destaque);
+    background-color: white;
 }
 
 /* Color Circles */

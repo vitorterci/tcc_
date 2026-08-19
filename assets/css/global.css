@@ -2297,3 +2297,87 @@ html {
     width: 100%;
     justify-content: center;
 }
+
+
+/* ─── CONTRASTE CENTRALIZADO PARA TODAS AS PÁGINAS ─────────────────────────────
+   A cor textual sobre o destaque é calculada uma vez em global.js e aplicada
+   aqui para evitar correções duplicadas em folhas e páginas específicas. */
+
+.container-busca > i,
+.container-busca .campo-busca,
+.container-busca .campo-busca::placeholder {
+    color: var(--cor-texto-sobre-destaque) !important;
+}
+
+.container-busca .campo-busca::placeholder {
+    opacity: 0.72;
+}
+
+/* A busca moderna fica sobre uma superfície própria, não sobre o destaque. */
+.nav-busca > i {
+    color: var(--cor-texto-muted) !important;
+}
+
+.nav-busca .campo-busca {
+    color: var(--cor-texto) !important;
+}
+
+.nav-busca .campo-busca::placeholder {
+    color: var(--cor-texto-muted) !important;
+}
+
+.btn-primario,
+.botao-detalhes,
+.formulario__botao:not(.formulario__botao--fantasma),
+.botao-filtro-principal:hover,
+.botao-filtro-principal.ativo,
+.opcao-filtro:hover,
+.opcao-filtro.selecionada,
+.hamburger-btn:hover,
+.card-jogo.open .menu-trigger,
+.painel-contextual__fechar:hover,
+.barra-lateral .menu-navegacao li.ativo a,
+.galeria-botao-navegacao:hover,
+#btn-salvar,
+#btn-alterar-senha,
+#btn-excluir-conta,
+#modal-senha-salvar,
+[class*="botao"][style*="var(--cor-primaria)"],
+[class*="btn"][style*="var(--cor-primaria)"] {
+    color: var(--cor-texto-sobre-destaque) !important;
+}
+
+.btn-primario:hover,
+.formulario__botao:hover:not(.formulario__botao--fantasma),
+[class*="botao"][style*="var(--cor-primaria-hover)"],
+[class*="btn"][style*="var(--cor-primaria-hover)"] {
+    color: var(--cor-texto-sobre-destaque-hover) !important;
+}
+
+/* O painel de autenticação também utiliza o destaque como fundo. */
+.autenticacao__sobreposicao {
+    background: linear-gradient(to right, var(--cor-primaria-hover), var(--cor-primaria)) !important;
+    color: var(--cor-texto-sobre-destaque) !important;
+}
+
+.autenticacao__sobreposicao * {
+    color: inherit;
+}
+
+/* Links e títulos que ficam em superfícies claras continuam legíveis. */
+.galeria-categoria__ver-todos,
+.painel-contextual__categoria {
+    color: var(--cor-texto-destaque) !important;
+}
+
+.galeria-categoria__ver-todos:hover {
+    color: var(--cor-texto-destaque-hover) !important;
+}
+
+/* Ícones da busca e dos estados de destaque acompanham o mesmo token. */
+.container-busca > i,
+.galeria-botao-navegacao:hover i,
+.tag-problema:hover i,
+.suggestions-list li i {
+    color: var(--cor-texto-sobre-destaque) !important;
+}

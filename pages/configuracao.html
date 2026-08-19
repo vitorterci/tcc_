@@ -39,7 +39,7 @@
         }
 
         .painel-header i {
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
             font-size: var(--fs-base);
             width: 20px;
             text-align: center;
@@ -128,7 +128,7 @@
             flex: 0 0 30px;
             place-items: center;
             margin-top: 1px;
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
             font-size: 12px;
             background: rgba(46, 0, 230, 0.16);
             border: 1px solid rgba(46, 0, 230, 0.28);
@@ -208,9 +208,9 @@
             gap: 10px;
         }
 
-            .aparencia-preview-botao {
+        .aparencia-preview-botao {
             padding: 7px 11px;
-            color: var(--cor-texto-sobre-destaque);
+            color: #fff;
             font-family: var(--font-corpo);
             font-size: 10px;
             font-weight: 700;
@@ -221,7 +221,7 @@
         }
 
         .aparencia-preview-link {
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
             font-family: var(--font-corpo);
             font-size: 11px;
             font-weight: 600;
@@ -277,7 +277,7 @@
         }
 
         .aparencia-controle-label span:last-child {
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
             font-family: 'JetBrains Mono', monospace;
             font-size: 10px;
             font-weight: 700;
@@ -520,7 +520,7 @@
         .avatar-actions .btn-avatar {
             background: none;
             border: none;
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
             font-size: var(--fs-xs);
             cursor: pointer;
             font-family: var(--font-corpo);
@@ -924,7 +924,7 @@
         }
 
         .btn-editar:hover {
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
             background: rgba(46, 0, 230, 0.1);
         }
 
@@ -950,7 +950,7 @@
             display: none;
             background: none;
             border: none;
-            color: var(--cor-texto-destaque);
+            color: var(--cor-primaria);
             cursor: pointer;
             padding: 4px 10px;
             border-radius: var(--border-radius-sm);
@@ -970,7 +970,7 @@
             bottom: 24px;
             right: 24px;
             background-color: var(--cor-primaria);
-            color: var(--cor-texto-sobre-destaque);
+            color: #fff;
             padding: 12px 22px;
             border-radius: var(--border-radius);
             font-family: var(--font-corpo);
@@ -1398,7 +1398,7 @@
             </div>
             <div style="display:flex; gap:12px; margin-top:20px; justify-content:flex-end;">
                 <button id="modal-senha-cancelar" style="background:none; border:1px solid var(--cor-borda); color:var(--cor-texto); padding:10px 24px; border-radius:var(--border-radius-xl); cursor:pointer;">Cancelar</button>
-                <button id="modal-senha-salvar" style="background:var(--cor-primaria); border:none; color:var(--cor-texto-sobre-destaque); padding:10px 24px; border-radius:var(--border-radius-xl); cursor:pointer;">Salvar</button>
+                <button id="modal-senha-salvar" style="background:var(--cor-primaria); border:none; color:#fff; padding:10px 24px; border-radius:var(--border-radius-xl); cursor:pointer;">Salvar</button>
             </div>
         </div>
     </div>
@@ -1597,12 +1597,15 @@
             if (elements.previewHex) elements.previewHex.textContent = cor;
             if (elements.previewHexLabel) elements.previewHexLabel.textContent = cor;
 
-            // Aplica a cor e recalcula o texto sobre o destaque em tempo real.
+            // Aplica a cor em tempo real (preview)
             document.documentElement.style.setProperty('--cor-primaria', cor);
-            const corHover = hslParaHex(hueAtual, satAtual, Math.min(lumAtual + 10, 100));
-            document.documentElement.style.setProperty('--cor-primaria-hover', corHover);
-            if (window.Preferencias) {
-                window.Preferencias.aplicarContraste(cor);
+            const rgb = hexParaRgb(cor);
+            if (rgb) {
+                const rgbStr = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+                document.documentElement.style.setProperty('--cor-primaria-rgb', rgbStr);
+                document.documentElement.style.setProperty('--cor-primaria-hover', hslParaHex(hueAtual, satAtual, Math.min(lumAtual + 10, 100)));
+                document.documentElement.style.setProperty('--shadow-glow', `0 0 20px rgba(${rgbStr}, 0.25)`);
+                document.documentElement.style.setProperty('--shadow-glow-hover', `0 0 35px rgba(${rgbStr}, 0.45)`);
             }
         }
 
