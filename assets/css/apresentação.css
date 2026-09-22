@@ -249,7 +249,7 @@ body {
 }
 .demo-window,
 .comparison-card {
-  background: rgba(26, 26, 46, 0.8);
+  background: var(--cor-card);
   border: 1px solid var(--cor-borda);
   border-radius: var(--border-radius-lg);
   box-shadow:
@@ -389,7 +389,7 @@ body {
   padding: var(--space-3) var(--space-2);
   border: 1px solid var(--cor-borda);
   border-radius: var(--border-radius);
-  background: rgba(21, 24, 39, 0.92);
+  background: var(--cor-card);
   box-shadow: var(--shadow);
   transition: all var(--transition-fast) ease;
 }
@@ -471,7 +471,7 @@ body {
 }
 .comparison-game img {
   width: 130px;
-  height: 76px;
+  margin-right: 10px;
   object-fit: cover;
   border-radius: var(--border-radius-sm);
   border: 1px solid var(--cor-borda);
@@ -605,7 +605,7 @@ body {
   font:400 var(--fs-md)/1.7 var(--font-corpo);
 }
 .history-title{
-  margin:28px 0 0;
+  margin:20px 0 0;
   padding-top:20px;
   border-top:1px solid var(--cor-borda);
   color:var(--cor-texto);
@@ -613,11 +613,38 @@ body {
   text-transform:uppercase;
 }
 .timeline {
+  position:relative;
   display: flex;
   justify-content: space-between;
-  margin-top: var(--space-2);
-  border-top: 1px solid var(--cor-borda);
-  padding-top: var(--space-2);
+  gap: 0;
+  margin-top: 14px;
+  padding-top: 18px;
+}
+.timeline::before {
+  content:"";
+  position:absolute;
+  top:7px;
+  left:12.5%;
+  right:12.5%;
+  border-top:1px solid var(--cor-borda);
+}
+.timeline span {
+  position:relative;
+  z-index:1;
+  flex:1;
+  align-items:center;
+  text-align:center;
+}
+.timeline span::before {
+  content:"";
+  position:absolute;
+  top:-15px;
+  width:9px;
+  height:9px;
+  border:2px solid var(--cor-primaria);
+  border-radius:50%;
+  background:var(--cor-fundo);
+  box-shadow:var(--shadow-glow);
 }
 .timeline span {
   display: flex;
@@ -949,7 +976,7 @@ body {
   gap: 48px;
 }
 .timeline {
-  margin-top: 24px;
+  margin-top: 14px;
 }
 .final-cta {
   padding-top: 76px;

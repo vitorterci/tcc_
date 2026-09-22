@@ -83,7 +83,7 @@ function obterInformacoesPreco(jogo) {
 
 function criarCardBiblioteca(jogo, indice) {
     const preco = obterInformacoesPreco(jogo);
-    const statusDisponivel = jogo.status === 'Disponível';
+    const statusDisponivel = jogo.status === 'ativo';
     const idJogo = Number(jogo.id);
     const nome = escaparHtml(jogo.nome || 'Jogo sem nome');
     const descricao = escaparHtml(jogo.descricao || 'Descrição não disponível.');

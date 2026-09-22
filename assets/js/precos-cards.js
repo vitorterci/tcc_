@@ -42,7 +42,7 @@
                 if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`);
                 return resposta.json();
             })
-            .then(dados => normalizarPreco(dados?.menor_preco ?? dados?.menorPreco))
+            .then(dados => normalizarPreco(dados?.menor_preco?.preco ?? dados?.menor_preco ?? dados?.menorPreco?.preco ?? dados?.menorPreco))
             .catch(erro => {
                 console.error(`Erro ao carregar preço de ${slug}:`, erro);
                 return null;

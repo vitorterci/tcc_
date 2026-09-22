@@ -170,8 +170,68 @@ function normalizarTexto(valor) {
     return String(valor ?? '')
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^\p{L}\p{N}]+/gu, ' ')
         .toLowerCase()
-        .trim();
+        .trim()
+        .replace(/\s+/g, ' ');
+}
+
+const sinonimosBusca = {
+    witcher: ['the witcher'],
+    'cavaleiro oco': ['hollow knight'],
+    'cavaleiros ocos': ['hollow knight'],
+    zelda: ['the legend of zelda'],
+    'zelda tears': ['the legend of zelda tears'],
+    ragnarok: ['god of war ragnarok'],
+    'deus da guerra': ['god of war'],
+    'deuses da guerra': ['god of war'],
+    'anel antigo': ['elden ring']
+};
+
+function distanciaLevenshtein(primeiro, segundo) {
+    const linha = Array.from({ length: segundo.length + 1 }, (_, indice) => indice);
+    for (let indice = 1; indice <= primeiro.length; indice += 1) {
+        let diagonal = linha[0];
+        linha[0] = indice;
+        for (let coluna = 1; coluna <= segundo.length; coluna += 1) {
+            const acima = linha[coluna];
+            linha[coluna] = primeiro[indice - 1] === segundo[coluna - 1]
+                ? diagonal
+                : Math.min(diagonal + 1, acima + 1, linha[coluna - 1] + 1);
+            diagonal = acima;
+        }
+    }
+    return linha[segundo.length];
+}
+
+function pontuarBusca(jogo, termo) {
+    if (!termo) return 0;
+    const nome = normalizarTexto(jogo.nome);
+    const consultas = [termo, ...(sinonimosBusca[termo] || [])];
+    let melhorPontuacao = 0;
+
+    consultas.forEach(consulta => {
+        if (nome === consulta) melhorPontuacao = Math.max(melhorPontuacao, 1000);
+        else if (nome.startsWith(consulta)) melhorPontuacao = Math.max(melhorPontuacao, 800);
+        else if (nome.includes(consulta)) melhorPontuacao = Math.max(melhorPontuacao, 650);
+
+        const palavrasBusca = consulta.split(' ').filter(Boolean);
+        const palavrasNome = nome.split(' ').filter(Boolean);
+        const palavrasEncontradas = palavrasBusca.filter(palavraBusca => palavrasNome.some(palavraNome => {
+            if (palavraNome.startsWith(palavraBusca) || palavraBusca.startsWith(palavraNome)) return true;
+            const limite = palavraBusca.length >= 5 ? 2 : palavraBusca.length > 3 ? 1 : 0;
+            return palavraBusca.length >= 4 && distanciaLevenshtein(palavraBusca, palavraNome) <= limite;
+        }));
+        if (palavrasEncontradas.length === palavrasBusca.length) {
+            melhorPontuacao = Math.max(melhorPontuacao, 400 + palavrasEncontradas.length * 20);
+        }
+    });
+    return melhorPontuacao;
+}
+
+function obterRelevanciaBusca(jogo, termo) {
+    const pontuacao = pontuarBusca(jogo, termo);
+    return pontuacao || (termo ? -1 : 0);
 }
 
 // Converte diferentes formatos cadastrados no banco para os códigos oficiais.
@@ -723,7 +783,9 @@ function plataformaCorresponde(valor, filtro) {
 	function aplicarFiltros() {
 	    const termo = normalizarTexto(termoPesquisa);
 	    const filtros = obterFiltrosAtivos();
-	    jogosFiltradosAtuais = listaDeJogos.filter(jogo => {
+	    jogosFiltradosAtuais = listaDeJogos.map((jogo, indice) => ({ jogo, indice, relevancia: obterRelevanciaBusca(jogo, termo) }))
+	        .filter(({ relevancia }) => !termo || relevancia >= 0)
+	        .filter(({ jogo }) => {
 	        const precoComparado = typeof window.obterPrecoComparado === 'function'
 	            ? window.obterPrecoComparado(jogo)
 	            : { valor: null };
@@ -733,14 +795,15 @@ function plataformaCorresponde(valor, filtro) {
 	            || (filtros.preco === 'baixo' && preco > 0 && preco <= 50)
 	            || (filtros.preco === 'medio' && preco > 50 && preco <= 150)
             || (filtros.preco === 'alto' && preco > 150);
-        return (filtros.categoria === 'todos' || normalizarTexto(jogo.categoria) === filtros.categoria)
+	        return (filtros.categoria === 'todos' || normalizarTexto(jogo.categoria) === filtros.categoria)
             && plataformaCorresponde(jogo.plataforma, filtros.plataforma)
             && (filtros.genero === 'todos' || normalizarTexto(jogo.genero) === filtros.genero)
             && (filtros.etaria === 'todos' || normalizarEtaria(jogo.etaria).codigo === filtros.etaria)
             && (filtros.ano === 'todos' || String(jogo.ano ?? '') === filtros.ano)
-            && precoCorrespondente
-            && (!termo || normalizarTexto(jogo.nome).includes(termo));
-    });
+	            && precoCorrespondente;
+	    })
+	        .sort((primeiro, segundo) => segundo.relevancia - primeiro.relevancia || primeiro.indice - segundo.indice)
+	        .map(({ jogo }) => jogo);
 
     if (typeof reiniciarPaginacao === 'function') reiniciarPaginacao();
     if (typeof renderizarJogos === 'function') renderizarJogos(jogosFiltradosAtuais);

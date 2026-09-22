@@ -5,7 +5,7 @@
     flex-direction: column;
     gap: var(--space-4);
     width: 100%;
-    max-width: 1000px;
+    max-width: 10000px;
 }
 
 .grid-detalhes {
@@ -17,11 +17,11 @@
 
 .capa-moldura {
     width: 100%;
-    aspect-ratio: 2/3;
+    aspect-ratio: 3/3;
     background-color: var(--cor-lateral);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    border: 1px solid var(--cor-borda);
+    border: 20px solid var(--cor-borda);
     box-shadow: var(--shadow-md);
 }
 
@@ -64,7 +64,7 @@
 
 .info-descricao-texto {
     background-color: var(--cor-lateral);
-    border: 1px solid var(--cor-borda);
+    border: 0px solid var(--cor-borda);
     border-radius: var(--radius-lg);
     padding: var(--space-3);
     line-height: 1.7;

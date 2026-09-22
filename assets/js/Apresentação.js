@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             splash.classList.add('hidden');
             setTimeout(() => splash.remove(), 800);
-        }, 2500);
+        }, 500);
     }
 
     // ── Intersection Observer para Fade-in ──
@@ -156,16 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (subtitulo) {
-        // Inicia mais cedo (300ms) e com stagger ainda menor
-        setTimeout(() => {
-            shuffleText(subtitulo, 'Sua próxima aventura começa aqui', {
-                stagger: 0.015,      // bem rápido
-                shuffleTimes: 1,
-                triggerOnHover: true,
-                loop: false,
-                respectReducedMotion: true
-            });
-        }, 300); // antes era 800ms
-    }
+    // O subtítulo permanece estático para nunca aparecer parcialmente ilegível
+    // durante o carregamento ou em capturas rápidas da página.
 });

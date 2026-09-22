@@ -134,7 +134,7 @@
     rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.22),
     rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.04)
   );
-  color: rgba(255, 255, 255, 0.8);
+  color: rgb(238, 0, 0);
   text-align: center;
   font-family: var(--font-corpo);
   font-size: var(--fs-xs);
@@ -2113,7 +2113,8 @@ body.sidebar-fechada .hamburger-btn {
     rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.22),
     rgba(var(--cor-primaria-rgb, 46, 0, 230), 0.04)
   );
-  color: rgba(255, 255, 255, 0);
+color: var(--cor-texto-muted);
+
 }
 
 /* ─── ANIMAÇÕES DE ENTRADA ──────────────────────────────────────────────── */
@@ -2210,7 +2211,7 @@ body.sidebar-fechada .hamburger-btn {
   height: 32px;
   border: none;
   border-radius: 50%;
-  background: rgba(10, 14, 26, 0.95);
+  background: var(--cor-lateral);
   color: var(--cor-texto);
   font-size: 18px;
   display: flex;
@@ -3126,4 +3127,140 @@ body.tema-escuro {
     .site-footer__bottom {
         padding: 12px 0 16px;
     }
+}
+
+
+/* ─── Correções pontuais do modo claro ─────────────────────────────────────── */
+html.tema-claro .carousel-track-container,
+body.tema-claro .carousel-track-container {
+  background: var(--cor-card);
+  box-shadow:
+    0 0 0 1px var(--cor-borda),
+    0 20px 50px rgba(44, 70, 115, 0.16),
+    var(--shadow-glow);
+}
+
+html.tema-claro .carousel-img-wrap,
+body.tema-claro .carousel-img-wrap {
+  background: var(--cor-card);
+}
+
+html.tema-claro .carousel-caption,
+body.tema-claro .carousel-caption {
+  background: color-mix(in srgb, var(--cor-lateral) 92%, var(--cor-primaria));
+  color: var(--cor-texto);
+}
+
+html.tema-claro .carousel-indicator,
+body.tema-claro .carousel-indicator {
+  background-color: var(--cor-borda-forte);
+}
+
+html.tema-claro .card-jogo,
+body.tema-claro .card-jogo {
+  box-shadow: var(--shadow-card);
+}
+
+html.tema-claro .card-jogo:hover,
+body.tema-claro .card-jogo:hover {
+  box-shadow:
+    var(--shadow-glow-hover),
+    0 10px 30px rgba(32, 36, 43, 0.18);
+}
+
+html.tema-claro .card-jogo-clone.expandido-clone .card-jogo-content,
+body.tema-claro .card-jogo-clone.expandido-clone .card-jogo-content,
+html.tema-claro .card-jogo-content,
+body.tema-claro .card-jogo-content {
+  background: var(--cor-dropdown);
+  border-color: var(--cor-borda-forte);
+  border-left-color: var(--cor-primaria);
+  box-shadow: var(--shadow-card);
+}
+
+html.tema-claro .card-jogo-descricao,
+body.tema-claro .card-jogo-descricao {
+  color: var(--cor-texto);
+  text-shadow: none;
+}
+
+html.tema-claro .info-tag,
+body.tema-claro .info-tag {
+  color: var(--cor-texto);
+  background: var(--cor-tag);
+  border-color: var(--cor-borda);
+  text-shadow: none;
+}
+
+html.tema-claro .etaria-18,
+body.tema-claro .etaria-18 {
+  color: #ffffff;
+}
+
+html.tema-claro .painel-contextual__descricao,
+body.tema-claro .painel-contextual__descricao {
+  color: var(--cor-texto-muted);
+}
+
+html.tema-claro .painel-contextual__informacoes div,
+body.tema-claro .painel-contextual__informacoes div {
+  border-bottom-color: var(--cor-borda);
+}
+
+html.tema-claro .painel-contextual__informacoes dt,
+body.tema-claro .painel-contextual__informacoes dt {
+  color: var(--cor-texto-muted);
+}
+
+
+/* ─── Página de detalhes: contraste no modo claro ─────────────────────────── */
+html.tema-claro .coluna-info,
+body.tema-claro .-info,
+html.tema-claro .secao-avaliacoes,
+body.tema-claro .secao-avaliacoes {
+  background: var(--cor-card);
+  border: 20px solid rgba(255, 255, 255, 0);
+  box-shadow: var(--shadow-card);
+}
+
+html.tema-claro .info-titulo,
+body.tema-claro .info-titulo,
+html.tema-claro .info-descricao-label,
+body.tema-claro .info-descricao-label,
+html.tema-claro .avaliacao-label,
+body.tema-claro .avaliacao-label,
+html.tema-claro .avaliacao-valor,
+body.tema-claro .avaliacao-valor,
+html.tema-claro .secao-precos h3,
+body.tema-claro .secao-precos h3 {
+  color: var(--cor-texto);
+  text-shadow: none;
+}
+
+html.tema-claro .tag-meta,
+body.tema-claro .tag-meta {
+  color: var(--cor-texto);
+  background-color: var(--cor-tag);
+  border-color: var(--cor-borda);
+  text-shadow: none;
+}
+
+html.tema-claro .info-descricao-texto,
+body.tema-claro .info-descricao-texto {
+  color: var(--cor-texto);
+  background-color: var(--cor-lateral);
+  border-color: var(--cor-borda);
+  text-shadow: none;
+}
+
+html.tema-claro .avaliacao-trilha,
+body.tema-claro .avaliacao-trilha {
+  background-color: var(--cor-hover);
+  border: 1px solid var(--cor-borda);
+}
+
+html.tema-claro .avaliacao-fill,
+body.tema-claro .avaliacao-fill {
+  background: var(--cor-primaria);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--cor-primaria) 45%, transparent);
 }
