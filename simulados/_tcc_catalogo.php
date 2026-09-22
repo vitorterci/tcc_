@@ -16,9 +16,9 @@ function tcc_catalogo_buscar(string $loja, array $filtros = []): array
     $db = tcc_catalogo_conexao();
     if (!$db) return [];
 
-    $sql = "SELECT j.id, j.nome, j.slug, j.descricao, j.img AS imagem,
-                   j.plataforma, j.genero,
-                   ROUND((COALESCE(j.avaliacao_gamplay, 0) + COALESCE(j.avaliacao_graficos, 0) + COALESCE(j.avaliacao_historia, 0)) / 3, 1) AS avaliacao
+    $sql = "SELECT j.id, j.nome, j.slug, j.descricao, j.img, j.img AS imagem,
+                   j.plataforma, j.genero, j.etaria, j.ano, j.status,
+                   0 AS avaliacao
             FROM tcc.jogos j
             WHERE 1 = 1";
     $types = '';
