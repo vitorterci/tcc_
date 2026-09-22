@@ -10,7 +10,7 @@ require_once __DIR__ . '/../../php/config.php';
 // Buscar feedbacks
 $feedbacks = [];
 try {
-    $result = $conexao->query("SELECT * FROM feedback ORDER BY data_cadastro DESC");
+    $result = $conexao->query("SELECT * FROM feedback ORDER BY data_envio DESC");
     if ($result === false) {
         error_log("Erro ao buscar feedbacks: " . $conexao->error);
     } else {
@@ -406,7 +406,7 @@ try {
                                     <?php echo htmlspecialchars($feedback['status']); ?>
                                 </span>
                             </td>
-                            <td><?php echo date('d/m/Y H:i', strtotime($feedback['data_cadastro'])); ?></td>
+                            <td><?php echo date('d/m/Y H:i', strtotime($feedback['data_envio'])); ?></td>
                             <td>
                                 <div class="acoes">
                                     <button class="btn-visualizar" data-id="<?php echo $feedback['id']; ?>" title="Visualizar">

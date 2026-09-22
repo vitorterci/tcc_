@@ -521,7 +521,7 @@ function cadastrarJogo(mysqli $conexao)
      */
 
     $stmt->bind_param(
-        'ssssssss isddds',
+        'ssssssssisddds',
         $slug,
         $nome,
         $descricao,
@@ -541,7 +541,7 @@ function cadastrarJogo(mysqli $conexao)
     /*
      * Corrige espaços acidentais do tipo de bind_param.
      */
-    $tipos = 'sssssssssisddds';
+    $tipos = 'ssssssssisddds';
 
     $stmt->close();
 

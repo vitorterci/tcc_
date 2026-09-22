@@ -650,7 +650,7 @@ try {
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toastMensagem');
             const seletores = {
-                categoria: document.getElementById('seletorCategorias'),
+                genero: document.getElementById('seletorCategorias'),
                 plataforma: document.getElementById('seletorPlataformas'),
                 ano: document.getElementById('seletorAno'),
                 etaria: document.getElementById('seletorEtaria'),
@@ -735,7 +735,7 @@ try {
                     document.getElementById('nome').value = jogo.nome || '';
                     document.getElementById('slug').value = jogo.slug || '';
                     document.getElementById('descricao').value = jogo.descricao || '';
-                    preencherSeletor(estadosSeletores.categoria, jogo.genero || jogo.categoria);
+                    preencherSeletor(estadosSeletores.genero, jogo.genero || jogo.categoria);
                     preencherSeletor(estadosSeletores.plataforma, jogo.plataforma);
                     preencherSeletor(estadosSeletores.ano, jogo.ano);
                     preencherSeletor(estadosSeletores.etaria, jogo.etaria || 'L');
@@ -745,7 +745,7 @@ try {
                     form.reset();
                     document.getElementById('jogoId').value = '';
                     document.getElementById('slug').value = '';
-                    preencherSeletor(estadosSeletores.categoria, '');
+                    preencherSeletor(estadosSeletores.genero, '');
                     preencherSeletor(estadosSeletores.plataforma, '');
                     preencherSeletor(estadosSeletores.ano, '');
                     preencherSeletor(estadosSeletores.etaria, 'L');
@@ -826,8 +826,8 @@ try {
                     nome: document.getElementById('nome').value,
                     slug: document.getElementById('slug').value || document.getElementById('nome').value.toLowerCase().replace(/\s+/g, '-'),
                     descricao: document.getElementById('descricao').value,
-                    categoria: valoresSelecionados(estadosSeletores.categoria).join(', '),
-                    genero: valoresSelecionados(estadosSeletores.categoria).join(', '),
+                    categoria: valoresSelecionados(estadosSeletores.genero).join(', '),
+                    genero: valoresSelecionados(estadosSeletores.genero).join(', '),
                     plataforma: valoresSelecionados(estadosSeletores.plataforma).join(', '),
                     etaria: valoresSelecionados(estadosSeletores.etaria)[0] || '',
                     ano: parseInt(valoresSelecionados(estadosSeletores.ano)[0], 10) || null,
